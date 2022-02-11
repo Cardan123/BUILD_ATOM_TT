@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const fileUpload = require("express-fileupload");
-const db = require("../database/config");
+const { dbConnection } = require("../database/config");
 
 class Server {
   constructor() {
@@ -31,7 +31,7 @@ class Server {
 
   async dbConnection() {
     try {
-      await db;
+      await dbConnection.authenticate();
       console.log("Database online");
     } catch (error) {
       throw new Error(error);
@@ -60,17 +60,17 @@ class Server {
 
   routes() {
     this.app.use(this.paths.auth, require("../routes/auth"));
-    // this.app.use(this.paths.usuarios, require("../routes/usuarios"));
-    // this.app.use(this.paths.grupos, require("../routes/grupos"));
-    // this.app.use(this.paths.publicaciones, require("../routes/publicaciones"));
-    // this.app.use(this.paths.comentarios, require("../routes/comentarios"));
-    // this.app.use(this.paths.laboratorios, require("../routes/laboratorios"));
-    // this.app.use(this.paths.ejercicios, require("../routes/ejercicios"));
-    // this.app.use(this.paths.atomos, require("../routes/atomos"));
-    // this.app.use(
-    //   this.paths.calificaciones,
-    //   require("../routes/calificaciones")
-    // );
+    this.app.use(this.paths.usuarios, require("../routes/usuarios"));
+    this.app.use(this.paths.grupos, require("../routes/grupos"));
+    this.app.use(this.paths.publicaciones, require("../routes/publicaciones"));
+    this.app.use(this.paths.comentarios, require("../routes/comentarios"));
+    this.app.use(this.paths.laboratorios, require("../routes/laboratorios"));
+    this.app.use(this.paths.ejercicios, require("../routes/ejercicios"));
+    this.app.use(this.paths.atomos, require("../routes/atomos"));
+    this.app.use(
+      this.paths.calificaciones,
+      require("../routes/calificaciones")
+    );
   }
 
   listen() {
