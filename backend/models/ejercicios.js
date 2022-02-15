@@ -1,6 +1,5 @@
 const { DataTypes } = require("sequelize");
 const { dbConnection } = require("../database/config");
-const { Laboratorio } = require("./laboratorios");
 
 const Ejercicio = dbConnection.define("ejercicios", {
   id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
@@ -9,7 +8,7 @@ const Ejercicio = dbConnection.define("ejercicios", {
   descripcion: { type: DataTypes.STRING },
   idLaboratorio: {
     type: DataTypes.INTEGER,
-    references: { model: Laboratorio, key: "id" },
+    references: { model: "laboratorios", key: "id" },
   },
 });
 

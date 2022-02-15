@@ -1,7 +1,5 @@
 const { DataTypes } = require("sequelize");
 const { dbConnection } = require("../database/config");
-const { Publicacion } = require("./publicaciones");
-const { Usuario } = require("./usuarios");
 
 const Comentario = dbConnection.define("comentarios", {
   id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
@@ -9,11 +7,11 @@ const Comentario = dbConnection.define("comentarios", {
   archivos: { type: DataTypes.STRING },
   idUsuario: {
     type: DataTypes.INTEGER,
-    references: { model: Usuario, key: "id" },
+    references: { model: "alumnos", key: "id" },
   },
   idPublicacion: {
     type: DataTypes.INTEGER,
-    references: { model: Publicacion, key: "id" },
+    references: { model: "publicaciones", key: "id" },
   },
 });
 
