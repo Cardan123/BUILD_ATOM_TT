@@ -1,0 +1,125 @@
+
+.auth__main {
+    align-items: center;
+    background: $primary-color-bg;
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+}
+.auth-box-container {
+    background-color: white;
+    box-shadow: 0px 3px $dark-grey;
+    border-radius: 10px;
+    width: 1000px;
+}
+
+.auth__container {
+    display: flex;
+    margin: 0px;
+    border-radius: 5px;
+    min-height: 700px;
+}
+.auth__image-container {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    flex: 60%;
+    background: $bg-image-section;
+    box-shadow: 2px 0px 10px -2px $dark-grey;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .auth__fondo {
+        height: 400px;
+        width: 400px;
+        border-radius: 100%;
+        background: $img-bg;
+        z-index: 20;
+        display: flex;
+        align-items: center;
+        img {
+            height: 500px;
+            width: 400px;
+        }
+    }
+}
+.auth__text-container {
+    background: $secondary-color-bg;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    flex: 40%;
+    font-family:$font-family;
+    .auth__ {
+        &header{
+            background: $bg-image-section;
+            margin-right: 50%;
+            margin-top: 40px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            border-top-right-radius: 999px;
+            border-bottom-right-radius: 999px;
+        }
+        &subtitle {
+            color: $secondary-color-bg;
+            font-size: 20px;
+            margin-left: 15px;
+        }
+        &title {
+            color: $primary-color-text;
+            font-size: 30px;
+            margin-top: 100px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        &label{
+            font-size: 15px;
+            color: darken($color: $auth-input-bg, $amount: 40);
+            margin-bottom: 10px;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+        &input {
+            background-color: rgba($auth-input-bg, 0.4);
+            border: 0px;
+            border-radius: 5px;
+            color: darken($color: $auth-input-bg, $amount: 40);
+            font-size: 15px;
+            margin-bottom: 15px;
+            margin-left: 10px;
+            margin-right: 10px;
+            width: 95%;
+            &:focus{
+                border-bottom: 1px solid darken($color: $auth-input-bg, $amount: 15);
+                outline: none;
+            }
+            &::placeholder {
+                color: darken($color: $auth-input-bg, $amount: 30);
+                font-size: 10px;
+                font-style: italic;
+            }
+        }
+        &button {
+            border-radius: 5px;
+            border: 1px solid ;
+            text-align: center;
+            background: $secondary-color-bg;
+            color: darken($color: $auth-input-bg, $amount: 40);
+            margin-bottom: 6rem;
+            margin-top: 2rem;
+            margin-left: 38%;
+            height: 40px;
+            &:hover, &:focus {
+                background: $bg-image-section;
+                color: $secondary-color-bg;
+                transition: 250ms background ease-in;
+            }
+        }
+        &redir {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+    }
+}
+
