@@ -1,12 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import axios from "axios";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 export const LoginScreen = () => {
-  const [alumnos, setAlumnos] = useState();
+  const [alumnos, setAlumnos] = useState([]);
+  const [profesores, setProfesores] = useState([]);
 
   const mailInputRef = useRef();
   const passwordInputRef = useRef();
+
+  const history = useHistory();
 
   useEffect(() => {
     let config = {
@@ -15,9 +19,24 @@ export const LoginScreen = () => {
       headers: {},
     };
 
-    const alumnos = axios(config)
+    axios(config)
       .then(function (response) {
         setAlumnos(response.data.alumnos);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+    config = {
+      method: "get",
+      url: "http://127.0.0.1:8080/api/profesores",
+      headers: {},
+    };
+
+    axios(config)
+      .then(function (response) {
+        setProfesores(response.data.profesores);
+        // console.log(response.data.profesores);
       })
       .catch(function (error) {
         console.log(error);
@@ -30,11 +49,23 @@ export const LoginScreen = () => {
     const enteredMail = mailInputRef.current.value;
     const enteredPassword = passwordInputRef.current.value;
 
-    console.log(alumnos.map((alumno) => console.log(alumno)));
-
     alumnos.map((alumno) => {
       if (alumno.email === enteredMail && alumno.password === enteredPassword) {
         console.log("encontrado");
+        history.push("/group");
+        // console.log(alumno);
+      }
+    });
+
+    profesores.map((profesor) => {
+      if (
+        profesor.email === enteredMail &&
+        profesor.password === enteredPassword
+      ) {
+        console.log("encontrado");
+        localStorage.setItem("id", profesor.id);
+        history.push("/group");
+        // console.log(profesor);
       }
     });
   };
