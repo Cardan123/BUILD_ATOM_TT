@@ -1,15 +1,51 @@
-import React, { Fragment, useState } from "react";
+import axios from "axios";
+import React, { Fragment, useState, useEffect } from "react";
 
 const UserList = (props) => {
-  const [profesor, setprofesor] = useState("Yasmin");
+  const [profesor, setProfesor] = useState([{}]);
 
-  const [alumnos, setalumnos] = useState(["Carlos", "Kevin", "David"]);
+  const [alumnos, setAlumnos] = useState(["Carlos", "Kevin", "David"]);
+
+  const getProfesor = async () => {
+    let config = {
+      method: "get",
+      url: `http://127.0.0.1:8080/api/profesores/${localStorage.getItem("id")}`,
+      headers: {},
+    };
+
+    let response = await axios(config);
+
+    setProfesor(response.data.profesor);
+  };
+
+  const getAlumnos = async () => {
+    let config = {
+      method: "get",
+      url: "http://127.0.0.1:8080/api/alumnos",
+      headers: {},
+    };
+
+    const response = await axios(config);
+
+    const alumnos = response.data.alumnos;
+
+    const pubFiltered = alumnos.filter((alumno) => {
+      return localStorage.getItem("idGrupo") === alumno.idGrupo.toString();
+    });
+
+    setAlumnos(pubFiltered);
+  };
+
+  useEffect(() => {
+    getProfesor();
+    getAlumnos();
+  }, [setProfesor, setAlumnos]);
 
   return (
     <Fragment>
       <nav>
         <h1>What's that atom?</h1>
-        <a href="#">Grupos</a>
+        <a href="/group">Grupos</a>
         <a href="#">Alumnos</a>
         <a href="#">Laboratorios</a>
       </nav>
@@ -17,7 +53,7 @@ const UserList = (props) => {
       <div>
         <h1>Profesor</h1>
         <ul>
-          <li>{`Profesor ${profesor}`}</li>
+          <li>{`Profesor ${profesor.nombre}`}</li>
         </ul>
       </div>
 
@@ -25,7 +61,7 @@ const UserList = (props) => {
         <h1>Alumnos</h1>
         <ul>
           {alumnos.map((alumno) => {
-            return <li>{`${alumno}`}</li>;
+            return <li key={Math.random()}>{`${alumno.nombre}`}</li>;
           })}
         </ul>
       </div>

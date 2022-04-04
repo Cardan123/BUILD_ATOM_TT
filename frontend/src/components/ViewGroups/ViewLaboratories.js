@@ -1,4 +1,5 @@
-import React, { Fragment, useState } from "react";
+import axios from "axios";
+import React, { Fragment, useState, useEffect } from "react";
 
 const ViewLaboratories = (props) => {
   const [laboratorios, setLaboratorios] = useState([
@@ -19,6 +20,63 @@ const ViewLaboratories = (props) => {
     },
   ]);
 
+  const [grupo, setGrupo] = useState([{}]);
+  const [profesor, setProfesor] = useState([{}]);
+
+  const getProfesor = async () => {
+    let config = {
+      method: "get",
+      url: `http://127.0.0.1:8080/api/profesores/${localStorage.getItem("id")}`,
+      headers: {},
+    };
+
+    let response = await axios(config);
+
+    setProfesor(response.data.profesor);
+  };
+
+  const getGrupo = async () => {
+    let config = {
+      method: "get",
+      url: `http://127.0.0.1:8080/api/grupos/${localStorage.getItem(
+        "idGrupo"
+      )}`,
+      headers: {},
+    };
+
+    const response = await axios(config);
+    const grupo = response.data.grupos;
+
+    setGrupo(grupo);
+  };
+
+  const getLaboratorios = async () => {
+    let config = {
+      method: "get",
+      url: "http://127.0.0.1:8080/api/laboratorios",
+      headers: {},
+    };
+
+    const response = await axios(config);
+
+    const laboratorios = response.data.laboratorios.filter(
+      (laboratorio) =>
+        laboratorio.idGrupo.toString() === localStorage.getItem("idGrupo")
+    );
+
+    setLaboratorios(laboratorios);
+  };
+
+  useEffect(() => {
+    getProfesor();
+    getGrupo();
+    getLaboratorios();
+  }, [setGrupo, setProfesor, setLaboratorios]);
+
+  const revisarLaboratorio = (id) => {
+    localStorage.setItem("idLaboratorio", id);
+  };
+
   return (
     <Fragment>
       <nav>
@@ -32,11 +90,17 @@ const ViewLaboratories = (props) => {
         <h1>Laboratorios</h1>
         {laboratorios.map((laboratorio) => {
           return (
-            <div>
-              <h2>{laboratorio.titulo}</h2>
-              <p>{laboratorio.profesor}</p>
+            <div key={Math.random()}>
+              <h2>{laboratorio.nombre}</h2>
               <p>{laboratorio.descripcion}</p>
-              <button>Agregar Alumno</button>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  revisarLaboratorio(laboratorio.id);
+                }}
+              >
+                Revisar Alumno
+              </button>
             </div>
           );
         })}

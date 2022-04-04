@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useRef, useState } from "react";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import group from "../../assets/img/group.jpg";
 export const EditGroupScreen = () => {
   const nameInputRef = useRef();
@@ -7,19 +8,21 @@ export const EditGroupScreen = () => {
 
   const [error, setError] = useState(false);
 
-  const updateGrupo = (data) => {
-    const id = 1;
+  const history = useHistory();
 
+  const updateGrupo = (data) => {
     let config = {
       method: "put",
-      url: `http://127.0.0.1:8080/api/grupos/${id}`,
+      url: `http://127.0.0.1:8080/api/grupos/${localStorage.getItem(
+        "idGrupo"
+      )}`,
       headers: {},
       data: data,
     };
 
     axios(config)
       .then(function (response) {
-        console.log(JSON.stringify(response.data));
+        // console.log(JSON.stringify(response.data));
       })
       .catch(function (error) {
         console.log(error);
@@ -30,9 +33,8 @@ export const EditGroupScreen = () => {
     event.preventDefault();
 
     const enteredName = nameInputRef.current.value;
-    const enteredProfesor = profesorInputRef.current.value;
 
-    if (enteredName.length === 0 || enteredProfesor === 0) {
+    if (enteredName.length === 0) {
       setError(true);
       return;
     }
@@ -40,10 +42,12 @@ export const EditGroupScreen = () => {
     const grupo = {
       nombre: enteredName,
       estado: true,
-      idProfesor: 1,
+      idProfesor: localStorage.getItem(""),
     };
 
     updateGrupo(grupo);
+
+    history.push("/group");
   };
 
   return (
@@ -67,14 +71,14 @@ export const EditGroupScreen = () => {
             className="config__input"
             ref={nameInputRef}
           />
-          <label className="config__label">Id Profesor</label>
+          {/* <label className="config__label">Id Profesor</label>
           <input
             type="text"
             name="profesor"
             id="profesor"
             className="config__input"
             ref={profesorInputRef}
-          />
+          /> */}
           {error && <p>verifica los campos ingresados</p>}
           <button
             type="submit"
