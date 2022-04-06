@@ -9,6 +9,14 @@ const Calificacion = dbConnection.define("calificaciones", {
     type: DataTypes.INTEGER,
     references: { model: "ejercicios", key: "id" },
   },
+  idAlumno: {
+    type: DataTypes.INTEGER,
+    references: { model: "alumnos", key: "id" },
+  },
+  idAtomo: {
+    type: DataTypes.INTEGER,
+    references: { model: "atomos", key: "id" },
+  },
 });
 
 module.exports = { Calificacion };

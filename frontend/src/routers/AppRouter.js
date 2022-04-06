@@ -8,6 +8,7 @@ import {
 import { MainScreen } from "../components/auth/MainScreen";
 import EvaluateGroup from "../components/ViewGroups/EvaluateGroups";
 import UserList from "../components/ViewGroups/UserList";
+import ViewExercise from "../components/ViewGroups/ViewExercise";
 import ViewGroup from "../components/ViewGroups/ViewGroups";
 import ViewGroupStudents from "../components/ViewGroups/ViewGroupStudents";
 import ViewLaboratories from "../components/ViewGroups/ViewLaboratories";
@@ -30,6 +31,7 @@ export const AppRouter = () => {
         <Route exact path="/group/list" component={UserList} />
         <Route exact path="/group/laboratories" component={ViewLaboratories} />
         <Route exact path="/group/evaluate" component={EvaluateGroup} />
+        <Route exact path="/group/exercise" component={ViewExercise} />
         <Redirect to="/auth/login" />
       </Switch>
     </Router>

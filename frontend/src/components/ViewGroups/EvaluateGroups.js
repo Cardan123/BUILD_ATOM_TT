@@ -1,11 +1,14 @@
 import axios from "axios";
 import React, { Fragment, useState, useEffect } from "react";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import Navbar from "../navbar/Navbar";
 
 const EvaluateGroup = (props) => {
   const [ejercicios, setEjercicios] = useState([{}]);
   const [alumnos, setAlumnos] = useState([{}]);
   const [laboratorio, setLaboratorio] = useState([{}]);
+
+  const history = useHistory();
 
   const getAlumnos = async () => {
     let config = {
@@ -74,8 +77,15 @@ const EvaluateGroup = (props) => {
             return (
               <li key={Math.random()}>
                 <p>{ejercicio.nombre}</p>
-                <textarea placeholder="Escribe aqui tu revision"></textarea>
-                <button>Agregar Comentario</button>
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    history.push("/group/exercise");
+                    localStorage.setItem("idEjercicio", ejercicio.id);
+                  }}
+                >
+                  Revisar ejercicio
+                </button>
               </li>
             );
           })}
