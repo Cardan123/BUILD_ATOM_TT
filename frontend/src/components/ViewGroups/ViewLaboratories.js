@@ -1,5 +1,7 @@
 import axios from "axios";
 import React, { Fragment, useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import Navbar from "../navbar/Navbar";
 
 const ViewLaboratories = (props) => {
   const [laboratorios, setLaboratorios] = useState([
@@ -22,6 +24,8 @@ const ViewLaboratories = (props) => {
 
   const [grupo, setGrupo] = useState([{}]);
   const [profesor, setProfesor] = useState([{}]);
+
+  const history = useHistory();
 
   const getProfesor = async () => {
     let config = {
@@ -75,16 +79,12 @@ const ViewLaboratories = (props) => {
 
   const revisarLaboratorio = (id) => {
     localStorage.setItem("idLaboratorio", id);
+    history.push("/group/evaluate");
   };
 
   return (
     <Fragment>
-      <nav>
-        <h1>What's that atom?</h1>
-        <a href="#">Grupos</a>
-        <a href="#">Alumnos</a>
-        <a href="#">Laboratorios</a>
-      </nav>
+      <Navbar />
 
       <div>
         <h1>Laboratorios</h1>
@@ -99,7 +99,7 @@ const ViewLaboratories = (props) => {
                   revisarLaboratorio(laboratorio.id);
                 }}
               >
-                Revisar Alumno
+                Revisar Laboratorio
               </button>
             </div>
           );

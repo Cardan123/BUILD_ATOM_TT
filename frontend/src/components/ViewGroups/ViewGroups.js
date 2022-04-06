@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { Fragment, useState, useEffect, useRef } from "react";
 import { useHistory } from "react-router-dom";
 import testImg from "../../assets/img/kevin.jpg";
+import Navbar from "../navbar/Navbar";
 
 const ViewGroup = (props) => {
   const inputTextRef = useRef();
@@ -81,7 +82,7 @@ const ViewGroup = (props) => {
     getGrupo();
     getPublicaciones();
     getComentarios();
-  }, [setProfesor, setPublicaciones, setGrupo]);
+  }, [setProfesor, setPublicaciones, setGrupo, setComentarios]);
 
   const insertPublication = async (event) => {
     event.preventDefault();
@@ -160,22 +161,9 @@ const ViewGroup = (props) => {
     getComentarios();
   };
 
-  const logOut = (event) => {
-    event.preventDefault();
-
-    localStorage.clear();
-    history.push("/");
-  };
-
   return (
     <Fragment>
-      <nav>
-        <h1>Whats that Atom?</h1>
-        <a href="#">Grupos</a>
-        <a href="/group/list">Alumnos</a>
-        <a href="/group/laboratories">Laboratorios</a>
-        <button onClick={logOut}>Log out</button>
-      </nav>
+      <Navbar />
 
       <div>
         <h1>{`Grupo ${grupo.id}`}</h1>

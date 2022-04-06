@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { Fragment, useState, useEffect } from "react";
+import Navbar from "../navbar/Navbar";
 
 const UserList = (props) => {
   const [profesor, setProfesor] = useState([{}]);
@@ -43,12 +44,7 @@ const UserList = (props) => {
 
   return (
     <Fragment>
-      <nav>
-        <h1>What's that atom?</h1>
-        <a href="/group">Grupos</a>
-        <a href="#">Alumnos</a>
-        <a href="#">Laboratorios</a>
-      </nav>
+      <Navbar />
 
       <div>
         <h1>Profesor</h1>
