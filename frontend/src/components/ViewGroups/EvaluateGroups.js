@@ -60,6 +60,8 @@ const EvaluateGroup = (props) => {
     setLaboratorio(response.data.laboratorio);
   };
 
+  const deleteEjercicio = async () => {};
+
   useEffect(() => {
     getAlumnos();
     getLaboratorios();

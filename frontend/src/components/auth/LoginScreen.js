@@ -12,35 +12,37 @@ export const LoginScreen = () => {
 
   const history = useHistory();
 
-  useEffect(() => {
+  const getAlumnos = async () => {
     let config = {
       method: "get",
       url: "http://127.0.0.1:8080/api/alumnos",
       headers: {},
     };
 
-    axios(config)
-      .then(function (response) {
-        setAlumnos(response.data.alumnos);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    const response = await axios(config);
 
-    config = {
+    setAlumnos(response.data.alumnos);
+  };
+
+  const getProfesor = async () => {
+    let config = {
       method: "get",
       url: "http://127.0.0.1:8080/api/profesores",
       headers: {},
     };
 
-    axios(config)
-      .then(function (response) {
-        setProfesores(response.data.profesores);
-        // console.log(response.data.profesores);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    const response = await axios(config);
+
+    const profesores = response.data.profesores.filter(
+      (profesor) => profesor.estado !== false
+    );
+
+    setProfesores(profesores);
+  };
+
+  useEffect(() => {
+    getAlumnos();
+    getProfesor();
   }, []);
 
   const buttonHandle = (event) => {

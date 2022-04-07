@@ -1,6 +1,7 @@
 import React, { Fragment, useState, useEffect, useRef } from "react";
 import Navbar from "../navbar/Navbar";
 import axios from "axios";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const ViewExercise = (props) => {
   const comentTextRef = useRef([]);
@@ -9,23 +10,24 @@ const ViewExercise = (props) => {
   const [alumnos, setAlumnos] = useState([{}]);
   const [laboratorio, setLaboratorio] = useState([{}]);
   const [calificaciones, setCalificaciones] = useState([{}]);
+  const [atomos, setAtomos] = useState([{}]);
 
-  const getAlumnos = async () => {
+  const history = useHistory();
+
+  const getAlumnos = async (calificacion) => {
     let config = {
       method: "get",
-      url: "http://127.0.0.1:8080/api/alumnos",
+      url: `http://127.0.0.1:8080/api/alumnos/${calificacion.idAlumno}`,
       headers: {},
     };
 
     const response = await axios(config);
 
-    const alumnos = response.data.alumnos;
+    const alumno = response.data.alumno;
 
-    const pubFiltered = alumnos.filter((alumno) => {
-      return localStorage.getItem("idEjercicio") === alumno.id.toString();
+    setAlumnos((prevState) => {
+      return [...prevState, alumno];
     });
-
-    setAlumnos(pubFiltered);
   };
 
   const getEjercicios = async () => {
@@ -71,15 +73,33 @@ const ViewExercise = (props) => {
         localStorage.getItem("idEjercicio")
     );
 
+    calificaciones.map((calificacion) => getAlumnos(calificacion));
+
     setCalificaciones(calificaciones);
   };
 
+  const getAtomos = async () => {
+    let config = {
+      method: "get",
+      url: "http://127.0.0.1:8080/api/atomos",
+      headers: {},
+    };
+    const response = await axios(config);
+
+    const atomos = response.data.atomos.filter(
+      (atomos) =>
+        atomos.idEjercicio.toString() === localStorage.getItem("idEjercicio")
+    );
+
+    setAtomos(atomos);
+  };
+
   useEffect(() => {
-    getAlumnos();
+    getCalificaciones();
     getEjercicios();
     getLaboratorios();
-    getCalificaciones();
-  }, [setAlumnos, setEjercicios, setLaboratorio, setCalificaciones]);
+    getAtomos();
+  }, [setAlumnos, setEjercicios, setLaboratorio, setCalificaciones, setAtomos]);
 
   const sendObservation = async (id, i) => {
     const enteredText = comentTextRef.current[i].value;
@@ -98,12 +118,61 @@ const ViewExercise = (props) => {
     getCalificaciones();
   };
 
+  const deleteCali = async (id) => {
+    let config = {
+      method: "delete",
+      url: `http://127.0.0.1:8080/api/calificaciones/${id}`,
+      headers: {},
+    };
+
+    await axios(config);
+
+    getCalificaciones();
+  };
+
+  const deleteAtom = async (id) => {
+    let config = {
+      method: "delete",
+      url: `http://127.0.0.1:8080/api/atomos/${id}`,
+      headers: {},
+    };
+
+    await axios(config);
+  };
+
+  const deleteExercise = async () => {
+    let config = {
+      method: "delete",
+      url: `http://127.0.0.1:8080/api/ejercicios/${localStorage.getItem(
+        "idEjercicio"
+      )}`,
+      headers: {},
+    };
+
+    calificaciones.map(async (calificacion) => {
+      if (
+        calificacion.idEjercicio.toString() ===
+        localStorage.getItem("idEjercicio")
+      )
+        await deleteCali(calificacion.id);
+    });
+
+    atomos.map(async (atomo) => {
+      if (atomo.idEjercicio.toString() === localStorage.getItem("idEjercicio"))
+        await deleteAtom(atomo.id);
+    });
+
+    await axios(config);
+
+    history.push("/group/evaluate");
+  };
+
   return (
     <Fragment>
       <Navbar />
 
       <h1>{`Ejercicio ${ejercicios.nombre}`}</h1>
-
+      <button onClick={deleteExercise}>Eliminar Ejercicio</button>
       {calificaciones.map((calificacion, i) => {
         const alumno =
           alumnos.find((alumno) => alumno.id === calificacion.idAlumno) || {};

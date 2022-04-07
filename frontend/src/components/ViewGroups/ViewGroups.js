@@ -161,6 +161,30 @@ const ViewGroup = (props) => {
     getComentarios();
   };
 
+  const deleteGroup = async (event) => {
+    event.preventDefault();
+
+    let config = {
+      method: "delete",
+      url: `http://127.0.0.1:8080/api/grupos/${localStorage.getItem(
+        "idGrupo"
+      )}`,
+      headers: {},
+    };
+
+    await axios(config);
+
+    config = {
+      method: "delete",
+      url: `http://127.0.0.1:8080/api/profesores/${localStorage.getItem("id")}`,
+      headers: {},
+    };
+
+    await axios(config);
+
+    history.push("/");
+  };
+
   return (
     <Fragment>
       <Navbar />
@@ -169,7 +193,7 @@ const ViewGroup = (props) => {
         <h1>{`Grupo ${grupo.id}`}</h1>
         <p>{`Profesor: ${profesor.nombre}`}</p>
         <a href="/edit/group">Editar Grupo</a>
-        <a href="#">Eliminar Grupo</a>
+        <button onClick={deleteGroup}>Eliminar Grupo</button>
       </div>
 
       <div>
