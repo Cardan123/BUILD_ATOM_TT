@@ -6,6 +6,9 @@ const Ejercicio = dbConnection.define("ejercicios", {
   nombre: { type: DataTypes.STRING },
   tipo: { type: DataTypes.STRING },
   descripcion: { type: DataTypes.STRING },
+  nProtones: { type: DataTypes.INTEGER },
+  nElectrones: { type: DataTypes.INTEGER },
+  nNeutrones: { type: DataTypes.INTEGER },
   idLaboratorio: {
     type: DataTypes.INTEGER,
     references: { model: "laboratorios", key: "id" },

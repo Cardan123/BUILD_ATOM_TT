@@ -32,6 +32,7 @@ export const AppRouter = () => {
         <Route exact path="/group/laboratories" component={ViewLaboratories} />
         <Route exact path="/group/evaluate" component={EvaluateGroup} />
         <Route exact path="/group/exercise" component={ViewExercise} />
+
         <Redirect to="/auth/login" />
       </Switch>
     </Router>

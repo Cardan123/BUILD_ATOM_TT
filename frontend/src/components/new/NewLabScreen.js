@@ -1,14 +1,16 @@
 import axios from "axios";
 import React, { useState, useRef } from "react";
+import { useHistory } from "react-router-dom";
 import newlab from "../../assets/img/newlab.png";
 export const NewLabScreen = () => {
   const nameInputRef = useRef();
-  const idGroupInputRef = useRef();
   const descriptionInputRef = useRef();
 
   const [error, setError] = useState(false);
 
-  const insertLab = (data) => {
+  const history = useHistory();
+
+  const insertLab = async (data) => {
     let config = {
       method: "post",
       url: "http://127.0.0.1:8080/api/laboratorios",
@@ -16,27 +18,18 @@ export const NewLabScreen = () => {
       data: data,
     };
 
-    axios(config)
-      .then(function (response) {
-        console.log(JSON.stringify(response.data));
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    await axios(config);
+
+    history.push("/group/laboratories");
   };
 
   const handleClick = (event) => {
     event.preventDefault();
 
     const enteredName = nameInputRef.current.value;
-    const enteredGroup = idGroupInputRef.current.value;
     const enteredDescription = descriptionInputRef.current.value;
 
-    if (
-      enteredName.length === 0 ||
-      enteredGroup === 0 ||
-      descriptionInputRef === 0
-    ) {
+    if (enteredName.length === 0 || descriptionInputRef === 0) {
       setError(true);
       return;
     }
@@ -44,7 +37,7 @@ export const NewLabScreen = () => {
     const laboratorio = {
       nombre: enteredName,
       descripcion: enteredDescription,
-      idGrupo: enteredGroup,
+      idGrupo: localStorage.getItem("idGrupo"),
     };
 
     insertLab(laboratorio);
@@ -70,14 +63,6 @@ export const NewLabScreen = () => {
             id="name"
             className="config__input"
             ref={nameInputRef}
-          />
-          <label className="config__label">Id Grupo</label>
-          <input
-            type="number"
-            name="grupo"
-            id="grupo"
-            className="config__input"
-            ref={idGroupInputRef}
           />
           <label className="config__label">Breve descripción</label>
           <textarea

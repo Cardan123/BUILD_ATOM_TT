@@ -21,7 +21,11 @@ export const LoginScreen = () => {
 
     const response = await axios(config);
 
-    setAlumnos(response.data.alumnos);
+    const alumnos = response.data.alumnos.filter(
+      (alumno) => alumno.estado != false
+    );
+
+    setAlumnos(alumnos);
   };
 
   const getProfesor = async () => {
@@ -51,13 +55,20 @@ export const LoginScreen = () => {
     const enteredMail = mailInputRef.current.value;
     const enteredPassword = passwordInputRef.current.value;
 
+    let encontrado = false;
+
     alumnos.map((alumno) => {
       if (alumno.email === enteredMail && alumno.password === enteredPassword) {
         console.log("encontrado");
-        history.push("/group");
-        // console.log(alumno);
+
+        localStorage.setItem("id", alumno.id);
+        localStorage.setItem("type", "alumno");
+        history.push("/group/students");
+        encontrado = true;
       }
     });
+
+    if (encontrado) return;
 
     profesores.map((profesor) => {
       if (
@@ -66,6 +77,7 @@ export const LoginScreen = () => {
       ) {
         console.log("encontrado");
         localStorage.setItem("id", profesor.id);
+        localStorage.setItem("type", "profesor");
         history.push("/group");
         // console.log(profesor);
       }

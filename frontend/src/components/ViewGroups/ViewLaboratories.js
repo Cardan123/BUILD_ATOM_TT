@@ -4,55 +4,13 @@ import { useHistory } from "react-router-dom";
 import Navbar from "../navbar/Navbar";
 
 const ViewLaboratories = (props) => {
-  const [laboratorios, setLaboratorios] = useState([
-    {
-      titulo: "Metales",
-      profesor: "Yasmin",
-      descripcion: "Laboratorio de Metales",
-    },
-    {
-      titulo: "Gases",
-      profesor: "Yasmin",
-      descripcion: "Laboratorio de Gases",
-    },
-    {
-      titulo: "Metaloides",
-      profesor: "Yasmin",
-      descripcion: "Laboratorio de Metaloides",
-    },
-  ]);
-
-  const [grupo, setGrupo] = useState([{}]);
-  const [profesor, setProfesor] = useState([{}]);
+  const [type, setType] = useState("");
+  const [laboratorios, setLaboratorios] = useState([]);
+  const [ejercicios, setEjercicios] = useState([{}]);
+  const [atomos, setAtomos] = useState([{}]);
+  const [calificaciones, setCalificaciones] = useState([{}]);
 
   const history = useHistory();
-
-  const getProfesor = async () => {
-    let config = {
-      method: "get",
-      url: `http://127.0.0.1:8080/api/profesores/${localStorage.getItem("id")}`,
-      headers: {},
-    };
-
-    let response = await axios(config);
-
-    setProfesor(response.data.profesor);
-  };
-
-  const getGrupo = async () => {
-    let config = {
-      method: "get",
-      url: `http://127.0.0.1:8080/api/grupos/${localStorage.getItem(
-        "idGrupo"
-      )}`,
-      headers: {},
-    };
-
-    const response = await axios(config);
-    const grupo = response.data.grupos;
-
-    setGrupo(grupo);
-  };
 
   const getLaboratorios = async () => {
     let config = {
@@ -71,15 +29,121 @@ const ViewLaboratories = (props) => {
     setLaboratorios(laboratorios);
   };
 
+  const getEjercicos = async () => {
+    let config = {
+      method: "get",
+      url: "http://127.0.0.1:8080/api/ejercicios",
+      headers: {},
+    };
+
+    const response = await axios(config);
+
+    setEjercicios(response.data.ejercicios);
+  };
+
+  const getAtomos = async () => {
+    let config = {
+      method: "get",
+      url: "http://127.0.0.1:8080/api/atomos",
+      headers: {},
+    };
+
+    const response = await axios(config);
+
+    setAtomos(response.data.atomos);
+  };
+
+  const getCalificaciones = async () => {
+    let config = {
+      method: "get",
+      url: "http://127.0.0.1:8080/api/calificaciones",
+      headers: {},
+    };
+
+    const response = await axios(config);
+
+    setCalificaciones(response.data.calificaciones);
+  };
+
   useEffect(() => {
-    getProfesor();
-    getGrupo();
+    setType(localStorage.getItem("type"));
     getLaboratorios();
-  }, [setGrupo, setProfesor, setLaboratorios]);
+    getEjercicos();
+    getCalificaciones();
+    getAtomos();
+  }, [setLaboratorios, setEjercicios, setCalificaciones, setAtomos]);
 
   const revisarLaboratorio = (id) => {
     localStorage.setItem("idLaboratorio", id);
     history.push("/group/evaluate");
+  };
+
+  const realizarLaboratorio = (id) => {
+    localStorage.setItem("idLaboratorio", id);
+    history.push("/group/evaluate");
+  };
+
+  const deleteCali = async (id) => {
+    let config = {
+      method: "delete",
+      url: `http://127.0.0.1:8080/api/calificaciones/${id}`,
+      headers: {},
+    };
+
+    await axios(config);
+
+    getCalificaciones();
+  };
+
+  const deleteAtom = async (id) => {
+    let config = {
+      method: "delete",
+      url: `http://127.0.0.1:8080/api/atomos/${id}`,
+      headers: {},
+    };
+
+    await axios(config);
+  };
+
+  const deleteExercise = async (id) => {
+    let config = {
+      method: "delete",
+      url: `http://127.0.0.1:8080/api/ejercicios/${id}`,
+      headers: {},
+    };
+
+    calificaciones.map(async (calificacion) => {
+      if (calificacion.idEjercicio === id) await deleteCali(calificacion.id);
+    });
+
+    atomos.map(async (atomo) => {
+      if (atomo.idEjercicio === id) await deleteAtom(atomo.id);
+    });
+
+    await axios(config);
+  };
+
+  const deleteLaboratory = async (id) => {
+    console.log("HOla");
+
+    let config = {
+      method: "delete",
+      url: `http://127.0.0.1:8080/api/laboratorios/${id}`,
+      headers: {},
+    };
+
+    await ejercicios.map(async (ejercicio) => {
+      if (ejercicio.idLaboratorio === id) await deleteExercise(ejercicio.id);
+    });
+
+    await axios(config);
+
+    getLaboratorios();
+  };
+
+  const createLaboratory = (event) => {
+    event.preventDefault();
+    history.push("/new/lab");
   };
 
   return (
@@ -88,19 +152,43 @@ const ViewLaboratories = (props) => {
 
       <div>
         <h1>Laboratorios</h1>
+        <button onClick={createLaboratory}>Crear Laboratorio</button>
         {laboratorios.map((laboratorio) => {
           return (
             <div key={Math.random()}>
               <h2>{laboratorio.nombre}</h2>
               <p>{laboratorio.descripcion}</p>
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  revisarLaboratorio(laboratorio.id);
-                }}
-              >
-                Revisar Laboratorio
-              </button>
+
+              {type === "profesor" && (
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      revisarLaboratorio(laboratorio.id);
+                    }}
+                  >
+                    Revisar Laboratorio
+                  </button>
+                ) && (
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      deleteLaboratory(laboratorio.id);
+                    }}
+                  >
+                    Eliminar Laboratorio
+                  </button>
+                )}
+
+              {type === "alumno" && (
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    realizarLaboratorio(laboratorio.id);
+                  }}
+                >
+                  Realizar Laboratorio
+                </button>
+              )}
             </div>
           );
         })}

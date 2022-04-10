@@ -190,7 +190,7 @@ const ViewGroup = (props) => {
       <Navbar />
 
       <div>
-        <h1>{`Grupo ${grupo.id}`}</h1>
+        <h1>{`Grupo ${grupo.id} ${grupo.nombre}`}</h1>
         <p>{`Profesor: ${profesor.nombre}`}</p>
         <a href="/edit/group">Editar Grupo</a>
         <button onClick={deleteGroup}>Eliminar Grupo</button>
