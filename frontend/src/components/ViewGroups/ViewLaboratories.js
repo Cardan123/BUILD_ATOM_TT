@@ -152,7 +152,11 @@ const ViewLaboratories = (props) => {
 
       <div>
         <h1>Laboratorios</h1>
-        <button onClick={createLaboratory}>Crear Laboratorio</button>
+
+        {type === "profesor" && (
+          <button onClick={createLaboratory}>Crear Laboratorio</button>
+        )}
+
         {laboratorios.map((laboratorio) => {
           return (
             <div key={Math.random()}>
@@ -160,24 +164,26 @@ const ViewLaboratories = (props) => {
               <p>{laboratorio.descripcion}</p>
 
               {type === "profesor" && (
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      revisarLaboratorio(laboratorio.id);
-                    }}
-                  >
-                    Revisar Laboratorio
-                  </button>
-                ) && (
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      deleteLaboratory(laboratorio.id);
-                    }}
-                  >
-                    Eliminar Laboratorio
-                  </button>
-                )}
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    revisarLaboratorio(laboratorio.id);
+                  }}
+                >
+                  Revisar Laboratorio
+                </button>
+              )}
+
+              {type === "profesor" && (
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    deleteLaboratory(laboratorio.id);
+                  }}
+                >
+                  Eliminar Laboratorio
+                </button>
+              )}
 
               {type === "alumno" && (
                 <button

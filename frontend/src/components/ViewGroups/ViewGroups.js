@@ -38,7 +38,7 @@ const ViewGroup = (props) => {
     const grupos = response.data.grupos;
 
     grupos.map((grupo) => {
-      if (localStorage.getItem("id") === grupo.id.toString()) {
+      if (localStorage.getItem("id") === grupo.idProfesor.toString()) {
         setGrupo(grupo);
         localStorage.setItem("idGrupo", grupo.id);
       }

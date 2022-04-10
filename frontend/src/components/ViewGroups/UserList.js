@@ -10,13 +10,29 @@ const UserList = (props) => {
   const getProfesor = async () => {
     let config = {
       method: "get",
-      url: `http://127.0.0.1:8080/api/profesores/${localStorage.getItem("id")}`,
+      url: `http://127.0.0.1:8080/api/profesores`,
       headers: {},
     };
 
     let response = await axios(config);
+    const profesores = response.data.profesores;
 
-    setProfesor(response.data.profesor);
+    config = {
+      method: "get",
+      url: `http://127.0.0.1:8080/api/grupos/${localStorage.getItem(
+        "idGrupo"
+      )}`,
+      headers: {},
+    };
+
+    response = await axios(config);
+    const grupo = response.data.grupo;
+
+    const profesor = profesores.filter((profesor) => {
+      if (grupo.idProfesor === profesor.id) return profesor;
+    });
+
+    setProfesor(profesor[0]);
   };
 
   const getAlumnos = async () => {

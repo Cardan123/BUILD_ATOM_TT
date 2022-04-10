@@ -1,5 +1,6 @@
 import axios from "axios";
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 
 export const EditProfileScreen = () => {
   const nameInputRef = useRef();
@@ -7,15 +8,20 @@ export const EditProfileScreen = () => {
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
   const repeatPasswordInputRef = useRef();
-  const groupInputRef = useRef();
 
+  const [usuario, setUsuario] = useState({
+    nombre: "",
+    institucion: "",
+    email: "",
+  });
   const [error, setError] = useState(false);
 
+  const history = useHistory();
+
   const updateAlumno = (data) => {
-    const id = 2;
     let config = {
       method: "put",
-      url: `http://127.0.0.1:8080/api/alumnos/${id}`,
+      url: `http://127.0.0.1:8080/api/alumnos/${localStorage.getItem("id")}`,
       headers: {},
       data: data,
     };
@@ -29,6 +35,54 @@ export const EditProfileScreen = () => {
       });
   };
 
+  const updateProfesor = (data) => {
+    let config = {
+      method: "put",
+      url: `http://127.0.0.1:8080/api/profesores/${localStorage.getItem("id")}`,
+      headers: {},
+      data: data,
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  const getProfesor = async () => {
+    let config = {
+      method: "get",
+      url: `http://127.0.0.1:8080/api/profesores/${localStorage.getItem("id")}`,
+      headers: {},
+    };
+
+    const response = await axios(config);
+
+    setUsuario(response.data.profesor);
+  };
+
+  const getAlumno = async () => {
+    let config = {
+      method: "get",
+      url: `http://127.0.0.1:8080/api/alumnos/${localStorage.getItem("id")}`,
+      headers: {},
+    };
+
+    const response = await axios(config);
+    setUsuario(response.data.alumno);
+  };
+
+  useEffect(() => {
+    if (localStorage.getItem("type") === "alumno") {
+      getAlumno();
+    } else {
+      getProfesor();
+    }
+  }, [setUsuario]);
+
   const handleClick = (event) => {
     event.preventDefault();
 
@@ -37,7 +91,6 @@ export const EditProfileScreen = () => {
     const enteredEmail = emailInputRef.current.value;
     const enteredPassword = passwordInputRef.current.value;
     const enteredRepeatPassword = repeatPasswordInputRef.current.value;
-    const enteredGroup = groupInputRef.current.value;
 
     if (enteredPassword !== enteredRepeatPassword) {
       setError(true);
@@ -49,23 +102,28 @@ export const EditProfileScreen = () => {
       enteredRepeatPassword === 0 ||
       enteredEmail.length === 0 ||
       enteredName.length === 0 ||
-      enteredIntitue.length === 0 ||
-      enteredGroup.length === 0
+      enteredIntitue.length === 0
     ) {
       setError(true);
       return;
     }
 
-    const alumno = {
+    const usuario = {
       nombre: enteredName,
       institucion: enteredIntitue,
       email: enteredEmail,
       password: enteredPassword,
       estado: true,
-      idGrupo: enteredGroup,
+      idGrupo: localStorage.getItem("idGrupo"),
     };
 
-    updateAlumno(alumno);
+    if (localStorage.getItem("type") === "alumno") {
+      updateAlumno(usuario);
+      history.push("/group/students");
+    } else {
+      updateProfesor(usuario);
+      history.push("/group");
+    }
   };
 
   return (
@@ -81,6 +139,7 @@ export const EditProfileScreen = () => {
         <form>
           <label className="config__label">Nombre</label>
           <input
+            defaultValue={usuario.nombre}
             type="text"
             name="name"
             id="name"
@@ -90,6 +149,7 @@ export const EditProfileScreen = () => {
           <label className="config__label">Institución</label>
           <input
             type="text"
+            defaultValue={usuario.institucion}
             name="intitute"
             id="intitute"
             className="config__input"
@@ -97,6 +157,7 @@ export const EditProfileScreen = () => {
           />
           <label className="config__label">Email</label>
           <input
+            defaultValue={usuario.email}
             type="email"
             name="email"
             id="email"
@@ -118,14 +179,6 @@ export const EditProfileScreen = () => {
             id="repeatPassword"
             className="config__input"
             ref={repeatPasswordInputRef}
-          />
-          <label className="config__label">Grupo</label>
-          <input
-            type="number"
-            name="grupo"
-            id="grupo"
-            className="config__input"
-            ref={groupInputRef}
           />
           {error && <p>Revisa los campos ingresados</p>}
           <button

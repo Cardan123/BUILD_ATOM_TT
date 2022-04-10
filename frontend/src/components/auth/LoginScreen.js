@@ -62,6 +62,7 @@ export const LoginScreen = () => {
         console.log("encontrado");
 
         localStorage.setItem("id", alumno.id);
+        localStorage.setItem("idGrupo", alumno.idGrupo);
         localStorage.setItem("type", "alumno");
         history.push("/group/students");
         encontrado = true;
@@ -116,7 +117,26 @@ export const LoginScreen = () => {
             Iniciar Sesión
           </button>
           <p className="auth__redir">
-            ¿No tienes una cuenta? <Link to="/auth/register"> Regístrate </Link>
+            ¿No tienes una cuenta?
+            <br />
+            <Link
+              to="/auth/register"
+              onClick={(e) => {
+                localStorage.setItem("type", "registerStudent");
+              }}
+            >
+              Regístrate como alumno
+            </Link>
+            <br />
+            <Link
+              to="/auth/register"
+              onClick={(e) => {
+                localStorage.setItem("type", "registerProfesor");
+              }}
+            >
+              {" "}
+              Regístrate como profesor
+            </Link>
           </p>
           <p className="auth__redir">
             <Link to="/auth/resetpass"> ¿Olvidaste tu contraseña? </Link>

@@ -1,6 +1,7 @@
-import React, { useRef, useState } from "react";
+import React, { Fragment, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 export const RegisterScreen = () => {
   const nameInputRef = useRef();
@@ -11,23 +12,56 @@ export const RegisterScreen = () => {
   const groupInputRef = useRef();
 
   const [error, setError] = useState(false);
+  const [type, setType] = useState("");
 
-  const insertData = (data) => {
-    let config = {
-      method: "post",
-      url: "http://127.0.0.1:8080/api/alumnos",
-      headers: {},
-      data: data,
-    };
+  const history = useHistory();
 
-    axios(config)
-      .then(function (response) {
-        console.log(JSON.stringify(response.data));
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+  const insertData = async (data) => {
+    let config;
+
+    if (type === "registerProfesor") {
+      const enteredGroup = groupInputRef.current.value;
+      config = {
+        method: "post",
+        url: "http://127.0.0.1:8080/api/profesores",
+        headers: {},
+        data: data,
+      };
+
+      const response = await axios(config);
+      console.log(response.data);
+      const usuario = response.data.usuario;
+
+      const grupo = {
+        nombre: enteredGroup,
+        numeroAlumnos: 0,
+        estado: true,
+        idProfesor: usuario.id,
+      };
+
+      config = {
+        method: "post",
+        url: "http://127.0.0.1:8080/api/grupos",
+        headers: {},
+        data: grupo,
+      };
+
+      await axios(config);
+    } else {
+      config = {
+        method: "post",
+        url: "http://127.0.0.1:8080/api/alumnos",
+        headers: {},
+        data: data,
+      };
+      const response = await axios(config);
+      console.log(response.data);
+    }
   };
+
+  useEffect(() => {
+    setType(localStorage.getItem("type"));
+  }, []);
 
   const handleClick = (event) => {
     event.preventDefault();
@@ -56,6 +90,25 @@ export const RegisterScreen = () => {
       return;
     }
 
+    if (type === "registerProfesor" && groupInputRef.length === 0) {
+      setError(true);
+      return;
+    }
+
+    if (type === "registerProfesor") {
+      const profesor = {
+        nombre: enteredName,
+        institucion: enteredIntitue,
+        email: enteredEmail,
+        password: enteredPassword,
+        estado: true,
+      };
+
+      insertData(profesor);
+
+      return;
+    }
+
     const alumno = {
       nombre: enteredName,
       institucion: enteredIntitue,
@@ -65,6 +118,7 @@ export const RegisterScreen = () => {
       idGrupo: enteredGroup,
     };
 
+    history.push("/");
     insertData(alumno);
   };
 
@@ -87,15 +141,7 @@ export const RegisterScreen = () => {
             className="auth__input"
             ref={nameInputRef}
           />
-          <label className="auth__label">Institución</label>
-          <input
-            type="text"
-            name="instituto"
-            id="instituto"
-            className="auth__input"
-            ref={instituteInputeRef}
-          />
-          <label className="auth__label">Correo Electrónico</label>
+          <label className="auth__label">Correo</label>
           <input
             type="email"
             placeholder="example@example.com"
@@ -103,6 +149,14 @@ export const RegisterScreen = () => {
             id="email"
             className="auth__input"
             ref={emailInputRef}
+          />
+          <label className="auth__label">Institucion</label>
+          <input
+            type="institute"
+            name="institute"
+            id="institute"
+            className="auth__input"
+            ref={instituteInputeRef}
           />
           <label className="auth__label">Contraseña</label>
           <input
@@ -120,14 +174,31 @@ export const RegisterScreen = () => {
             className="auth__input"
             ref={repeatPasswordInputRef}
           />
-          <label className="auth__label">Grupo</label>
-          <input
-            type="number"
-            name="number-auth"
-            id="number-auth"
-            className="auth__input"
-            ref={groupInputRef}
-          />
+          {type === "registerStudent" && (
+            <Fragment>
+              <label className="auth__label">Grupo</label>
+              <input
+                type="number"
+                name="number-auth"
+                id="number-auth"
+                className="auth__input"
+                ref={groupInputRef}
+              />
+            </Fragment>
+          )}
+
+          {type === "registerProfesor" && (
+            <Fragment>
+              <label className="auth__label">Nombre Grupo</label>
+              <input
+                type="text"
+                name="nombreGrupo-auth"
+                id="nombreGrupo-auth"
+                className="auth__input"
+                ref={groupInputRef}
+              />
+            </Fragment>
+          )}
           {error && <p>Revisa los campos</p>}
           <button type="submit" className="auth__button" onClick={handleClick}>
             Regístrate

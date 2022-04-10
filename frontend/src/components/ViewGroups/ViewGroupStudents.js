@@ -61,11 +61,26 @@ const ViewGroupStudents = (props) => {
     setComentarios(comentarios);
   };
 
+  const getGrupo = async () => {
+    let config = {
+      method: "get",
+      url: `http://127.0.0.1:8080/api/grupos/${localStorage.getItem(
+        "idGrupo"
+      )}`,
+      headers: {},
+    };
+
+    const response = await axios(config);
+    const grupo = response.data.grupo;
+    setGrupo(grupo);
+  };
+
   useEffect(() => {
     getAlumno();
     getPublicaciones();
     getComentarios();
-  }, [setAlumno, setPublicaciones, setComentarios]);
+    getGrupo();
+  }, [setAlumno, setPublicaciones, setComentarios, setGrupo]);
 
   const insertPublication = async (event) => {
     event.preventDefault();
@@ -149,7 +164,7 @@ const ViewGroupStudents = (props) => {
       <Navbar />
 
       <div>
-        <h1>{`Grupo ${alumno.idGrupo}`}</h1>
+        <h1>{`Grupo ${alumno.idGrupo} ${grupo.nombre}`}</h1>
         <p>{`Alumno: ${alumno.nombre}`}</p>
       </div>
 

@@ -26,6 +26,7 @@ const Navbar = (props) => {
         {type === "profesor" && <a href="/group">Grupos</a>}
         <a href="/group/list">Alumnos</a>
         <a href="/group/laboratories">Laboratorios</a>
+        <a href="/edit/profile">Editar Perfil</a>
         <button onClick={logOut}>Log out</button>
       </nav>
     </Fragment>
