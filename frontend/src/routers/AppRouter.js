@@ -26,13 +26,20 @@ export const AppRouter = () => {
         <Route path="/new" component={CreateRouter} />
         <Route exact path="/main" component={ViewRouter} />
         <Route exact path="/" component={MainScreen} />
-        <Route exact path="/group" component={ViewGroup} />
-        <Route exact path="/group/students" component={ViewGroupStudents} />
-        <Route exact path="/group/list" component={UserList} />
-        <Route exact path="/group/laboratories" component={ViewLaboratories} />
-        <Route exact path="/group/evaluate" component={EvaluateGroup} />
-        <Route exact path="/group/exercise" component={ViewExercise} />
-
+        <div className="config__main">
+          <div className="config-box-container">
+            <Route exact path="/group" component={ViewGroup} />
+            <Route exact path="/group/students" component={ViewGroupStudents} />
+            <Route exact path="/group/list" component={UserList} />
+            <Route
+              exact
+              path="/group/laboratories"
+              component={ViewLaboratories}
+            />
+            <Route exact path="/group/evaluate" component={EvaluateGroup} />
+            <Route exact path="/group/exercise" component={ViewExercise} />
+          </div>
+        </div>
         <Redirect to="/auth/login" />
       </Switch>
     </Router>
