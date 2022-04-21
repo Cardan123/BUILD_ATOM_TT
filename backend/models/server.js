@@ -20,6 +20,7 @@ class Server {
       atomos: "/api/atomos",
       calificaciones: "/api/calificaciones",
       uploads: "/api/uploads",
+      recover: "/recover",
     };
 
     //Conectar a base datos
@@ -93,6 +94,7 @@ class Server {
       this.paths.calificaciones,
       require("../routes/calificaciones")
     );
+    this.app.use(this.paths.recover, require("../routes/recover"));
   }
 
   listen() {

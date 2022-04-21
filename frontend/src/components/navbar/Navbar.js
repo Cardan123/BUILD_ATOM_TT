@@ -22,34 +22,80 @@ const Navbar = (props) => {
     setType(localStorage.getItem("type"));
   }, []);
 
+  const redirect = (link) => {
+    history.push(link);
+  };
+
   return (
     <Fragment>
-      <nav>
-        <div className="config__barra-sup">
-          <h2 className="config__barra-sup-header">WHAT'S THAT ATOM?</h2>
+      <div className="config__barra-sup">
+        <h2 className="config__barra-sup-header">WHAT'S THAT ATOM?</h2>
+        <button
+          className="config__barra-sup-buttons"
+          onClick={(e) => {
+            e.preventDefault();
+            redirect("/group/list");
+          }}
+        >
+          Alumnos
+        </button>
+        {type === "alumno" && (
+          <button
+            className="config__barra-sup-buttons"
+            onClick={(e) => {
+              e.preventDefault();
+              redirect("/group/students");
+            }}
+          >
+            Grupo
+          </button>
+        )}
+        {type === "profesor" && (
+          <button
+            className="config__barra-sup-buttons"
+            onClick={(e) => {
+              e.preventDefault();
+              redirect("/group");
+            }}
+          >
+            Grupo
+          </button>
+        )}
 
-          <div className="config__barra-sup-options">
-            <div className="config__barra-sup-options-distr">
-              <div className="config__barra-sup-options-content">
-                <img
-                  src={yasmin}
-                  className="config__barra-sup-options-img"
-                ></img>
-                <FontAwesomeIcon
-                  icon={faAngleDown}
-                  className="config__barra-sup-options-icon"
-                />
-              </div>
-              {type === "alumno" && <a href="/group/students">Grupos</a>}
-              {type === "profesor" && <a href="/group">Grupos</a>}
-              <a href="/group/list">Alumnos</a>
-              <a href="/group/laboratories">Laboratorios</a>
-              <a href="/edit/profile">Editar Perfil</a>
-              <button onClick={logOut}>Log out</button>
+        <button
+          className="config__barra-sup-buttons"
+          onClick={(e) => {
+            e.preventDefault();
+            redirect("/group/laboratories");
+          }}
+        >
+          Laboratorios
+        </button>
+
+        <div className="config__barra-sup-options">
+          <div className="config__barra-sup-options-distr">
+            <div className="config__barra-sup-options-content">
+              <img
+                src={yasmin}
+                className="config__barra-sup-options-img"
+                alt="avatar"
+              ></img>
+              <button className="config__barra-sup-buttons" onClick={logOut}>
+                Log out
+              </button>
+              <button
+                className="config__barra-sup-buttons"
+                onClick={(e) => {
+                  e.preventDefault();
+                  history.push("/edit/profile");
+                }}
+              >
+                Editar Perfil
+              </button>
             </div>
           </div>
         </div>
-      </nav>
+      </div>
     </Fragment>
   );
 };

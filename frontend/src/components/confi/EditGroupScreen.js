@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import group from "../../assets/img/group.jpg";
 export const EditGroupScreen = () => {
@@ -7,6 +7,7 @@ export const EditGroupScreen = () => {
   const profesorInputRef = useRef();
 
   const [error, setError] = useState(false);
+  const [grupo, setGrupo] = useState([{}]);
 
   const history = useHistory();
 
@@ -42,7 +43,7 @@ export const EditGroupScreen = () => {
     const grupo = {
       nombre: enteredName,
       estado: true,
-      idProfesor: localStorage.getItem(""),
+      idProfesor: localStorage.getItem("id"),
     };
 
     updateGrupo(grupo);

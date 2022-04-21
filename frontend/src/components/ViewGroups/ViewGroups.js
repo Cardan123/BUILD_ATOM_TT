@@ -1,3 +1,4 @@
+import { faS } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import React, { Fragment, useState, useEffect, useRef } from "react";
 import { useHistory } from "react-router-dom";
@@ -12,6 +13,7 @@ const ViewGroup = (props) => {
   const [profesor, setProfesor] = useState([{}]);
   const [publicaciones, setPublicaciones] = useState([{}]);
   const [comentarios, setComentarios] = useState([{}]);
+  const [selectedFile, setSelectedFile] = useState(null);
 
   const history = useHistory();
 
@@ -104,7 +106,22 @@ const ViewGroup = (props) => {
       data: publicacion,
     };
 
-    const publi = await axios(config);
+    const response = await axios(config);
+
+    if (selectedFile) {
+      const data = new FormData();
+      data.append("archivo", selectedFile);
+
+      config = {
+        method: "put",
+        url: `http://127.0.0.1:8080/api/uploads/publicaciones/${response.data.publicacion.id}`,
+        headers: { "Content-Type": "multipart/form-data" },
+        data: data,
+      };
+
+      const upload = await axios(config);
+      setSelectedFile(null);
+    }
 
     getPublicaciones();
   };
@@ -128,7 +145,22 @@ const ViewGroup = (props) => {
       data: comentario,
     };
 
-    const coments = await axios(config);
+    const response = await axios(config);
+
+    if (selectedFile) {
+      const data = new FormData();
+      data.append("archivo", selectedFile);
+
+      config = {
+        method: "put",
+        url: `http://127.0.0.1:8080/api/uploads/comentarios/${response.data.comentario.id}`,
+        headers: { "Content-Type": "multipart/form-data" },
+        data: data,
+      };
+
+      const upload = await axios(config);
+      setSelectedFile(null);
+    }
 
     getComentarios();
   };
@@ -187,96 +219,144 @@ const ViewGroup = (props) => {
 
   return (
     <Fragment>
-      <Navbar />
+      <div className="view-main">
+        <div className="config__text-container">
+          <div className="group__info">
+            <h1 className="group__info-title">{`Grupo ${grupo.id} ${grupo.nombre}`}</h1>
+            <p className="group__info-user">{`Profesor: ${profesor.nombre}`}</p>
 
-      <div>
-        <h1>{`Grupo ${grupo.id} ${grupo.nombre}`}</h1>
-        <p>{`Profesor: ${profesor.nombre}`}</p>
-        <a href="/edit/group">Editar Grupo</a>
-        <button onClick={deleteGroup}>Eliminar Grupo</button>
-      </div>
+            <button
+              className="group__pub-button"
+              onClick={(e) => {
+                e.preventDefault();
+                history.push("/edit/group");
+              }}
+            >
+              Editar Grupo
+            </button>
+            <button className="group__pub-button" onClick={deleteGroup}>
+              Eliminar Grupo
+            </button>
+          </div>
 
-      <div>
-        <img src={testImg} width="100px"></img>
-        <form>
-          <textarea
-            placeholder="Escribe tu publicacion aqui"
-            ref={inputTextRef}
-          ></textarea>
-          <button onClick={insertPublication}>Enviar publicacion</button>
-        </form>
-      </div>
-
-      <div>
-        {publicaciones.map((publicacion, i) => {
-          const coments = comentarios.map((comentario) => {
-            if (comentario.idPublicacion === publicacion.id) {
-              return (
-                <div key={Math.random()}>
-                  <p>{comentario.texto}</p>
-
-                  {comentario.archivos !== "null" && (
-                    <img
-                      src={comentario.archivos}
-                      width="100px"
-                      alt={`Publicacion ${comentario.id}`}
-                    />
-                  )}
-                  <p>{`by ${comentario.idUsuario}`}</p>
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      deleteComent(comentario.id);
-                    }}
-                  >
-                    Eliminar Comentario
-                  </button>
-                  <br />
-                </div>
-              );
-            }
-          });
-
-          return (
-            <div key={Math.random()}>
-              <p>{publicacion.texto}</p>
-
-              {publicacion.archivos !== "null" && (
+          <div className="view-main-container">
+            <div className="view-main-container-post">
+              <div className="group__new-pub">
                 <img
-                  src={publicacion.archivos}
-                  width="100px"
-                  alt={`Publicacion ${publicacion.id}`}
-                />
-              )}
-
-              <p>{`by ${publicacion.idUsuario}`}</p>
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  deletePublication(publicacion.id, "publicaciones");
-                }}
-              >
-                Eliminar Publicacion
-              </button>
-              <br />
-              <form>
-                <textarea
-                  placeholder="Escribe tu comentario aqui"
-                  ref={(el) => (comentTextRef.current[i] = el)}
-                ></textarea>
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    insertComent(publicacion.id, i);
-                  }}
-                >
-                  Enviar comentario
-                </button>
-              </form>
-              {coments}
+                  className="group__img-pub"
+                  src={testImg}
+                  alt="avatar"
+                ></img>
+                <div className="view-main-container-form">
+                  <form>
+                    <textarea
+                      className="view-main-container-form-area"
+                      placeholder="Escribe tu publicacion aqui"
+                      ref={inputTextRef}
+                    ></textarea>
+                    <input
+                      type="file"
+                      onChange={(e) => setSelectedFile(e.target.files[0])}
+                    />
+                    <button
+                      className="group__pub-button"
+                      onClick={insertPublication}
+                    >
+                      Enviar publicacion
+                    </button>
+                  </form>
+                </div>
+              </div>
             </div>
-          );
-        })}
+
+            <div>
+              {publicaciones.map((publicacion, i) => {
+                const coments = comentarios.map((comentario) => {
+                  if (comentario.idPublicacion === publicacion.id) {
+                    return (
+                      <div
+                        className="view-main-container-post-comment"
+                        key={Math.random()}
+                      >
+                        <p>{comentario.texto}</p>
+
+                        {comentario.archivos !== "null" && (
+                          <img
+                            src={comentario.archivos}
+                            width="100px"
+                            alt={`Publicacion ${comentario.id}`}
+                          />
+                        )}
+                        <p>{`by ${comentario.idUsuario}`}</p>
+                        <button
+                          className="group__pub-button"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            deleteComent(comentario.id);
+                          }}
+                        >
+                          Eliminar Comentario
+                        </button>
+                        <br />
+                      </div>
+                    );
+                  }
+                });
+
+                return (
+                  <div className="view-main-container-post" key={Math.random()}>
+                    <p>{`Post por Usuario con id: ${publicacion.idUsuario}`}</p>
+                    <p className="config__input pub-text">
+                      {publicacion.texto}
+                    </p>
+
+                    {publicacion.archivos !== "null" && (
+                      <img
+                        className="view-main-container-post-img"
+                        src={publicacion.archivos}
+                        width="100px"
+                        alt={`Publicacion ${publicacion.id}`}
+                      />
+                    )}
+
+                    <button
+                      className="group__pub-button"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        deletePublication(publicacion.id, "publicaciones");
+                      }}
+                    >
+                      Eliminar Publicacion
+                    </button>
+                    <br />
+
+                    <div className="view-main-container-form">
+                      <form>
+                        <textarea
+                          placeholder="Escribe tu comentario aqui"
+                          className="view-main-container-form-area"
+                          ref={(el) => (comentTextRef.current[i] = el)}
+                          rows="3"
+                          cols="70"
+                        ></textarea>
+                        <button
+                          className="group__pub-button"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            insertComent(publicacion.id, i);
+                          }}
+                        >
+                          Enviar comentario
+                        </button>
+                      </form>
+                    </div>
+                    {coments}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
       </div>
     </Fragment>
   );

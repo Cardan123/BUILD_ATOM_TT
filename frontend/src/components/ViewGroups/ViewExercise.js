@@ -169,34 +169,42 @@ const ViewExercise = (props) => {
 
   return (
     <Fragment>
-      <Navbar />
+      {/* <Navbar /> */}
+      <div className="config__container">
+        <div className="config__text-container">
+          <h1 className="group__info-title laboratorios">{`Ejercicio ${ejercicios.nombre}`}</h1>
+          <button className="group__pub-button" onClick={deleteExercise}>
+            Eliminar Ejercicio
+          </button>
+          {calificaciones.map((calificacion, i) => {
+            const alumno =
+              alumnos.find((alumno) => alumno.id === calificacion.idAlumno) ||
+              {};
 
-      <h1>{`Ejercicio ${ejercicios.nombre}`}</h1>
-      <button onClick={deleteExercise}>Eliminar Ejercicio</button>
-      {calificaciones.map((calificacion, i) => {
-        const alumno =
-          alumnos.find((alumno) => alumno.id === calificacion.idAlumno) || {};
-
-        return (
-          <div key={Math.random()}>
-            <h2>{alumno.nombre}</h2>
-            <p>{calificacion.puntuaje}</p>
-            <p>{calificacion.observacion}</p>
-            <textarea
-              placeholder="Escribe tu observacion o recomendacion"
-              ref={(el) => (comentTextRef.current[i] = el)}
-            ></textarea>
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                sendObservation(calificacion.id, i);
-              }}
-            >
-              Enviar
-            </button>
-          </div>
-        );
-      })}
+            return (
+              <div className="group__container-info-lab" key={Math.random()}>
+                <h2 className="laboratorios">{alumno.nombre}</h2>
+                <p className="laboratorios-desc">{calificacion.puntuaje}</p>
+                <p className="laboratorios-desc">{calificacion.observacion}</p>
+                <textarea
+                  className="view-main-container-form-area"
+                  placeholder="Escribe tu observacion o recomendacion"
+                  ref={(el) => (comentTextRef.current[i] = el)}
+                ></textarea>
+                <button
+                  className="group__pub-button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    sendObservation(calificacion.id, i);
+                  }}
+                >
+                  Enviar
+                </button>
+              </div>
+            );
+          })}
+        </div>
+      </div>
     </Fragment>
   );
 };

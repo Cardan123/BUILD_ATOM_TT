@@ -139,7 +139,23 @@ export const LoginScreen = () => {
             </Link>
           </p>
           <p className="auth__redir">
-            <Link to="/auth/resetpass"> ¿Olvidaste tu contraseña? </Link>
+            <Link
+              to="/auth/resetpass"
+              onClick={(e) => {
+                localStorage.setItem("type", "registerStudent");
+              }}
+            >
+              ¿Olvidaste tu contraseña alumno?
+            </Link>
+            <br />
+            <Link
+              to="/auth/resetpass"
+              onClick={(e) => {
+                localStorage.setItem("type", "registerProfesor");
+              }}
+            >
+              ¿Olvidaste tu contraseña profesor?
+            </Link>
           </p>
         </form>
       </div>

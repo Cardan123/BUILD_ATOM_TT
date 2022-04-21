@@ -148,56 +148,62 @@ const ViewLaboratories = (props) => {
 
   return (
     <Fragment>
-      <Navbar />
+      {/* <Navbar /> */}
+      <div className="config__container">
+        <div className="config__text-container">
+          <h1 className="group__info-title laboratorios">Laboratorios</h1>
 
-      <div>
-        <h1>Laboratorios</h1>
+          {type === "profesor" && (
+            <button className="group__pub-button" onClick={createLaboratory}>
+              Crear Laboratorio
+            </button>
+          )}
 
-        {type === "profesor" && (
-          <button onClick={createLaboratory}>Crear Laboratorio</button>
-        )}
+          {laboratorios.map((laboratorio) => {
+            return (
+              <div className="group__container-info-lab" key={Math.random()}>
+                <h2 className="laboratorios">{laboratorio.nombre}</h2>
+                <p className="laboratorios-desc">{laboratorio.descripcion}</p>
 
-        {laboratorios.map((laboratorio) => {
-          return (
-            <div key={Math.random()}>
-              <h2>{laboratorio.nombre}</h2>
-              <p>{laboratorio.descripcion}</p>
+                {type === "profesor" && (
+                  <button
+                    className="group__pub-button"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      revisarLaboratorio(laboratorio.id);
+                    }}
+                  >
+                    Revisar Laboratorio
+                  </button>
+                )}
 
-              {type === "profesor" && (
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    revisarLaboratorio(laboratorio.id);
-                  }}
-                >
-                  Revisar Laboratorio
-                </button>
-              )}
+                {type === "profesor" && (
+                  <button
+                    className="group__pub-button"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      deleteLaboratory(laboratorio.id);
+                    }}
+                  >
+                    Eliminar Laboratorio
+                  </button>
+                )}
 
-              {type === "profesor" && (
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    deleteLaboratory(laboratorio.id);
-                  }}
-                >
-                  Eliminar Laboratorio
-                </button>
-              )}
-
-              {type === "alumno" && (
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    realizarLaboratorio(laboratorio.id);
-                  }}
-                >
-                  Realizar Laboratorio
-                </button>
-              )}
-            </div>
-          );
-        })}
+                {type === "alumno" && (
+                  <button
+                    className="group__pub-button"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      realizarLaboratorio(laboratorio.id);
+                    }}
+                  >
+                    Realizar Laboratorio
+                  </button>
+                )}
+              </div>
+            );
+          })}
+        </div>
       </div>
     </Fragment>
   );

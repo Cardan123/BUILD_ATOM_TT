@@ -60,22 +60,25 @@ const UserList = (props) => {
 
   return (
     <Fragment>
-      <Navbar />
+      {/* <Navbar /> */}
+      <div className="list-container">
+        <div className="list-container-profesor">
+          <h1>Profesor</h1>
+          <hr className="list-container-hr" />
+          <ul>
+            <li>{`Profesor ${profesor.nombre}`}</li>
+          </ul>
+        </div>
 
-      <div>
-        <h1>Profesor</h1>
-        <ul>
-          <li>{`Profesor ${profesor.nombre}`}</li>
-        </ul>
-      </div>
-
-      <div>
-        <h1>Alumnos</h1>
-        <ul>
-          {alumnos.map((alumno) => {
-            return <li key={Math.random()}>{`${alumno.nombre}`}</li>;
-          })}
-        </ul>
+        <div>
+          <h1>Alumnos</h1>
+          <hr className="list-container-hr" />
+          <ul>
+            {alumnos.map((alumno) => {
+              return <li key={Math.random()}>{`${alumno.nombre}`}</li>;
+            })}
+          </ul>
+        </div>
       </div>
     </Fragment>
   );

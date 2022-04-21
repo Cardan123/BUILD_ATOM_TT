@@ -90,47 +90,60 @@ const EvaluateGroup = (props) => {
 
   return (
     <Fragment>
-      <Navbar />
-      <div>
-        <h1>{laboratorio.nombre}</h1>
+      {/* <Navbar /> */}
+      <div className="config__container">
+        <div className="config__text-container">
+          <h1 className="group__info-title laboratorios">
+            {laboratorio.nombre}
+          </h1>
 
-        {type === "profesor" && (
-          <button onClick={createExercise}>Crear ejercicio</button>
-        )}
-        <hr />
-        <ul>
-          {ejercicios.map((ejercicio) => {
-            return (
-              <li key={Math.random()}>
-                <p>{ejercicio.nombre}</p>
-                <p>{ejercicio.descripcion}</p>
-                {type === "profesor" && (
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      history.push("/group/exercise");
-                      localStorage.setItem("idEjercicio", ejercicio.id);
-                    }}
-                  >
-                    Revisar ejercicio
-                  </button>
-                )}
-                {type === "alumno" && getCalificacionEjercicio(ejercicio.id)}
-                {type === "alumno" && (
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      history.push("/group/exercise");
-                      localStorage.setItem("idEjercicio", ejercicio.id);
-                    }}
-                  >
-                    Realizar ejercicio
-                  </button>
-                )}
-              </li>
-            );
-          })}
-        </ul>
+          {type === "profesor" && (
+            <button className="group__pub-button" onClick={createExercise}>
+              Crear ejercicio
+            </button>
+          )}
+          <hr />
+          <ul>
+            {ejercicios.map((ejercicio) => {
+              return (
+                <div className="group__container-info-lab">
+                  <li key={Math.random()}>
+                    <p className="group__info-title laboratorios">
+                      {ejercicio.nombre}
+                    </p>
+                    <p className="laboratorios">{ejercicio.descripcion}</p>
+                    {type === "profesor" && (
+                      <button
+                        className="group__pub-button"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          history.push("/group/exercise");
+                          localStorage.setItem("idEjercicio", ejercicio.id);
+                        }}
+                      >
+                        Revisar ejercicio
+                      </button>
+                    )}
+                    {type === "alumno" &&
+                      getCalificacionEjercicio(ejercicio.id)}
+                    {type === "alumno" && (
+                      <button
+                        className="group__pub-button"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          history.push("/group/exercise");
+                          localStorage.setItem("idEjercicio", ejercicio.id);
+                        }}
+                      >
+                        Realizar ejercicio
+                      </button>
+                    )}
+                  </li>
+                </div>
+              );
+            })}
+          </ul>
+        </div>
       </div>
     </Fragment>
   );
