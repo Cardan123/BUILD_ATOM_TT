@@ -1,0 +1,21 @@
+.contenedor {
+  position: absolute;
+  top: 56%;
+  left: 65%;
+
+  width: 33%;
+  height: 25%;
+
+  background-color: white;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 3%;
+  border-color: lightgray;
+  color: black;
+
+  text-align: left;
+  font-family: "Roboto", sans-serif;
+  font-weight: 100;
+  font-size: 1.5vw;
+  line-height: 220%;
+}

@@ -1,0 +1,38 @@
+.guardar {
+  border: 0;
+  background: none;
+  box-shadow: none;
+  border-radius: 0px;
+  position: absolute;
+  top: 83%;
+  left: 65%;
+  width: 33%;
+  height: 8%;
+  border-radius: 10%;
+  background: rgb(130, 83, 222);
+  background: linear-gradient(
+    85deg,
+    rgba(130, 83, 222, 1) 0%,
+    rgba(155, 89, 241, 1) 100%
+  );
+  color: white;
+  font-size: 2vw;
+}
+
+.carta {
+  position: absolute;
+  top: 80px;
+  left: 3%;
+  border-radius: 2% 2% 0% 0%;
+  border-color: gray;
+  border-style: solid;
+  border-width: 1px;
+  height: 100%;
+  width: 94%;
+  background-color: white;
+}
+
+html {
+  background: rgb(124, 47, 223);
+  /*background: linear-gradient(0deg, rgba(124,47,223,1) 0%, rgba(146,51,245,1) 100%);*/
+}

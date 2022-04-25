@@ -106,7 +106,7 @@ const EvaluateGroup = (props) => {
           <ul>
             {ejercicios.map((ejercicio) => {
               return (
-                <div className="group__container-info-lab">
+                <div key={Math.random()} className="group__container-info-lab">
                   <li key={Math.random()}>
                     <p className="group__info-title laboratorios">
                       {ejercicio.nombre}
@@ -131,8 +131,12 @@ const EvaluateGroup = (props) => {
                         className="group__pub-button"
                         onClick={(e) => {
                           e.preventDefault();
-                          history.push("/group/exercise");
+                          history.push("/laboratories/do");
                           localStorage.setItem("idEjercicio", ejercicio.id);
+                          localStorage.setItem(
+                            "EjercicioNombre",
+                            ejercicio.nombre
+                          );
                         }}
                       >
                         Realizar ejercicio

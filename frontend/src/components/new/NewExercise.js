@@ -20,9 +20,12 @@ const NewExercise = (props) => {
       data: data,
     };
 
-    await axios(config);
+    const response = await axios(config);
 
-    history.push("/group/evaluate");
+    localStorage.setItem("idEjercicio", response.data.ejercicio.id);
+    localStorage.setItem("typeExercise", "Create");
+
+    history.push("/laboratories/do");
   };
 
   const handleClick = (event) => {

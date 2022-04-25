@@ -11,36 +11,6 @@ import NewExercise from "../components/new/NewExercise";
 export const CreateRouter = () => {
   return (
     <div className="config__main">
-      <div className="config__barra-sup">
-        <h2 className="config__barra-sup-header">WHAT'S THAT ATOM?</h2>
-        <div className="config__barra-sup-options">
-          <div className="config__barra-sup-options-distr">
-            <div className="config__barra-sup-options-content">
-              <img src={yasmin} className="config__barra-sup-options-img"></img>
-              <FontAwesomeIcon
-                icon={faAngleDown}
-                className="config__barra-sup-options-icon"
-              />
-            </div>
-            <div className="config__barra-sup-options-menu">
-              <ul className="menu-list">
-                <li className="menu-option">
-                  <Link to="/edit/profile" className="menu-option-link">
-                    {" "}
-                    Editar perfil{" "}
-                  </Link>
-                </li>
-                <li className="menu-option">
-                  <Link to="/auth/login" className="menu-option-link">
-                    {" "}
-                    Cerrar Sesión{" "}
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
       <div className="config-box-container">
         <Switch>
           <Route exact path="/new/group" component={NewGroupScreen} />
