@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import ReactDOM from "react-dom";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import background from "../Assets/personaje.svg"
 
 
 const getElectrons = (count, offset = 0, type=0) =>
@@ -5169,22 +5170,16 @@ const move = (source, destination, droppableSource, droppableDestination) => {
 
 
 
-
-const grid = 3;
-
-
-
-
 const getParticleStyle = (isDragging, draggableStyle, type) => ({
 
   userSelect: "none",
-  padding: grid * 2,
+  padding: '0.4vw',
   borderRadius: `50%`,
-  margin: `0 0 ${grid}px 0`,
-  height: `10px`,
-  width: `10px`,
+  margin: `0 0 0.25vw 0`,
+  height: `0.5vw`,
+  width: `0.5vw`,
   color: `white`,
-  fontSize: `15px`,
+  fontSize: `0.8vw`,
   fontWeight: `bold`,
   fontFamily: `roboto`,
   textAlign: `center`,
@@ -5203,14 +5198,22 @@ const getParticleStyle = (isDragging, draggableStyle, type) => ({
 
 
 const getListStyle = (isDraggingOver,id) => ({
-  background: isDraggingOver ? "lightblue" : "lightgrey",
-  width: (id===3) ? 850 : 250,
+  background: (isDraggingOver && (id!=3) ) ? "cyan" : (id===3) ? "" : "lightgrey",
+  width: (id===3) ? '58%' : '17%',
   position: `absolute`,
-  //position: (id===3) ? `absolute` : ``,
-  //backgroundImage: "url("+"../Assets/tabla-periodica.png"+")",
-  top: (id===3) ? 100 : 600,
-  left: (id===3) ? 50 : (id===2) ? 350 : (id===1) ? 650 : 50,
-  height: (id===3) ? 450 : 250,
+  borderWidth: 10,
+  borderRadius: 10,
+  borderColor: 'blue',
+  
+  backgroundImage: (id===3) ? `url(${background})` : ``,
+  backgroundRepeat: (id===3) ? `no-repeat`: ``,
+  backgroundPosition: (id===3) ? `center`: ``,
+  backgroundSize: (id===3) ? `60vw 60vw`: ``,
+
+
+  top: (id===3) ? '10%' : '60%',
+  left: (id===3) ? '4%' : (id===2) ? '25%' : (id===1) ? '45%' :'4%',
+  height: (id===3) ? '45%' : '30%',
 });
 
 
@@ -5222,7 +5225,7 @@ const getListStyle = (isDraggingOver,id) => ({
 export function Cubeta(props) {
 
 
-  const [state, setState] = useState([getElectrons(99), getProtons(99, 99), getNeutrons(99, 198), getNeutrons(0, 297)]);
+  const [state, setState] = useState([getElectrons(118), getProtons(118, 118), getNeutrons(118, 238), getNeutrons(0, 355)]);
 
 
   function onDragEnd(result) {

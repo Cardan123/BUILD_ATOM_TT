@@ -7,7 +7,7 @@ export function Elemento(props) {
       <div className='contenedorelemento'>
           <div className='elemento'>
           <div className='numeroatomico'>{props.datos.number}</div>
-          <div className='masaatomica'>{props.datos.atomic_mass}</div>
+          <div className='masaatomica'>{props.datos.atomic_mass.toFixed(2)}</div>
           <div className='simbolo'>{props.datos.symbol}</div>
           <div className='nombreelemento'>{props.datos.name}</div>
           </div>

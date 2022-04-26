@@ -1,87 +1,90 @@
-.contenedorelemento {
-  position: absolute;
-  top: 29%;
-  left: 65%;
-  border-style: solid;
-  border-width: 1px;
-  border-radius: 3%;
-  border-color: lightgray;
-  color: white;
+.contenedorelemento{
+    position: absolute;
+    top:29%;
+    left:65%;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 3%;
+    border-color: lightgray;
+    color: white;
 
-  height: 25%;
-  width: 33%;
 
-  background: rgb(130, 83, 222);
-  background: linear-gradient(
-    85deg,
-    rgba(130, 83, 222, 1) 0%,
-    rgba(155, 89, 241, 1) 100%
-  );
+    height: 25%;
+    width: 33%;
+
+    background: rgb(130,83,222);
+    background: linear-gradient(85deg, rgba(130,83,222,1) 0%, rgba(155,89,241,1) 100%);
 }
 
-.elemento {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 
-  height: 80%;
-  width: 35%;
 
-  text-align: center;
-  border-radius: 10%;
-  font-size: 6em;
-  color: white;
-  border-style: solid;
-  border-width: 2px;
-  border-color: white;
-  font-weight: bold;
+.elemento{
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+
+    height: 80%;
+    width: 35%;
+    
+    text-align: center;
+    border-radius: 10%;
+    font-size: 6em;
+    color: white;
+    border-style: solid;
+    border-width: 2px;
+    border-color: white;
+    font-weight: bold;
 }
 
-.numeroatomico {
-  position: relative;
-  top: 4.7%;
-  left: 4%;
-  height: 2%;
-  width: 2%;
+.numeroatomico{
+    position: relative;
+    top: 4.7%;
+    left: 4%;
+    height: 2%;
+    width: 2%;
 
-  font-family: "Roboto", sans-serif;
-  font-weight: 100;
-  font-size: 2vw;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100;
+    font-size: 2vw;
+
 }
 
-.masaatomica {
-  position: relative;
-  top: 1%;
-  left: 50%;
-  height: 2%;
-  width: 2%;
+.masaatomica{
+    position: relative;
+    top: 1%;
+    left: 50%;
+    height: 2%;
+    width: 2%;
 
-  font-family: "Roboto", sans-serif;
-  font-weight: 100;
-  font-size: 2vw;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100;
+    font-size: 2vw;
+
 }
 
-.simbolo {
-  position: relative;
-  top: 10%;
-  height: 2%;
-  width: auto;
 
-  font-family: "Roboto", sans-serif;
-  font-weight: 100;
-  font-size: 7.5vw;
-  text-align: center;
+.simbolo{
+    position: relative;
+    top: 10%;
+    height: 2%;
+    width: auto;
+
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100;
+    font-size: 7.5vw;
+    text-align: center;
 }
 
-.nombreelemento {
-  position: relative;
-  top: 72%;
-  height: 2%;
-  width: auto;
 
-  font-family: "Roboto", sans-serif;
-  font-weight: 100;
-  font-size: 2vw;
-  text-align: center;
+.nombreelemento{
+    position: relative;
+    top: 72%;
+    height: 2%;
+    width: auto;
+
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100;
+    font-size: 2vw;
+    text-align: center;
 }

@@ -1,27 +1,57 @@
-.tabla {
-  position: absolute;
-  top: 2%;
-  left: 65%;
+.tabla{
+    position: absolute;
+    top: 2%;
+    left: 65%;
 
-  width: 33%;
-  height: 25%;
+    width: 33%;
+    height: 25%;
 
-  border-style: solid;
-  border-width: 1px;
-  border-radius: 3%;
-  border-color: lightgray;
-  color: white;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 3%;
+    border-color: lightgray;
+    color: black;
+    background-color: rgb(130,83,222);
+
 }
 
-.imagen:hover {
-  color: orange;
-}
-
-.imagen {
+.table{
+  display: grid;
+  grid-template-columns: repeat(18, 1.2vw);
+  grid-template-rows: repeat(10, 1.2vw);
+  grid-gap: 2px;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  height: 100%;
-  width: auto;
+  font-size: 0.5vw;
+  background-color: rgb(130,83,222);
+}
+
+.element {
+  background: white;
+  border: 1px solid #aaa;
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+}
+
+.table:hover {
+  transform: scale(2.5, 2.5) translate(-50%, 10%);
+  z-index: 1;
+}
+
+.element .number {
+  font-size: 0.3vw;
+  position: absolute;
+  top: 1px;
+  left: 1px;
+}
+
+.element .name {
+  font-size: 0.23vw;
+  position: absolute;
+  bottom: 1px;
+  left: 1px;
 }
