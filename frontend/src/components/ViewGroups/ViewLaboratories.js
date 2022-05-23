@@ -146,22 +146,28 @@ const ViewLaboratories = (props) => {
     history.push("/new/lab");
   };
 
+  const random = () => Math.floor(Math.random() * (255 - 100 + 1) + 100);
+
   return (
     <Fragment>
       {/* <Navbar /> */}
-      <div className="config__container">
-        <div className="config__text-container">
-          <h1 className="group__info-title laboratorios">Laboratorios</h1>
+      <div id="contenedor1" className="group__container">
+        <div id="contenedorLabs" className="group__text-container">
+          <h1 id="tituloLabs" className="group__info-title laboratorios">Laboratorios</h1>
 
           {type === "profesor" && (
-            <button className="group__pub-button" onClick={createLaboratory}>
+            <button id="botoncrear" className="group__pub-button" onClick={createLaboratory}>
               Crear Laboratorio
             </button>
           )}
 
+          <hr id="hrlabs" />
           {laboratorios.map((laboratorio) => {
             return (
-              <div className="group__container-info-lab" key={Math.random()}>
+              <div style={{
+              background: `rgb(${random()}, ${random()}, ${random()})`, 
+            }}     
+              className="group__container-info-lab" key={Math.random()}>
                 <h2 className="laboratorios">{laboratorio.nombre}</h2>
                 <p className="laboratorios-desc">{laboratorio.descripcion}</p>
 
@@ -190,7 +196,7 @@ const ViewLaboratories = (props) => {
                 )}
 
                 {type === "alumno" && (
-                  <button
+                  <button id="realilab"
                     className="group__pub-button"
                     onClick={(e) => {
                       e.preventDefault();

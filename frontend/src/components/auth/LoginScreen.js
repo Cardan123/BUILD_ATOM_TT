@@ -51,10 +51,11 @@ export const LoginScreen = () => {
 
   const buttonHandle = (event) => {
     event.preventDefault();
-
+    console.log(1);
     const enteredMail = mailInputRef.current.value;
     const enteredPassword = passwordInputRef.current.value;
-
+    console.log(enteredMail);
+    console.log(enteredPassword);
     let encontrado = false;
 
     alumnos.map((alumno) => {

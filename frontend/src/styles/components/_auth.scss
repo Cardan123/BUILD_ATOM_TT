@@ -1,7 +1,7 @@
 
 .auth__main {
     align-items: center;
-    background: $primary-color-bg;
+    background: $primary-color-bg2;
     display: flex;
     justify-content: center;
     height: 100vh;
@@ -34,7 +34,9 @@
         height: 400px;
         width: 400px;
         border-radius: 100%;
-        background: $img-bg;
+        background-image: url(../../assets/img/personaje.png);
+        background-position: center;
+        background-repeat: no-repeat;
         z-index: 20;
         display: flex;
         align-items: center;

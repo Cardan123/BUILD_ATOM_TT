@@ -129,7 +129,7 @@ export const EditProfileScreen = () => {
   return (
     <div className="config__container">
       <div className="config__image-container">
-        <div className="config__fondo"></div>
+        <div id="imagenEditPerfil" className="config__fondo"></div>
       </div>
       <div className="config__text-container">
         <div className="config__header">

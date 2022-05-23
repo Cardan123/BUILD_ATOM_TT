@@ -166,32 +166,40 @@ const ViewExercise = (props) => {
 
     history.push("/group/evaluate");
   };
+  const random = () => Math.floor(Math.random() * (255 - 100 + 1) + 100);
 
   return (
     <Fragment>
       {/* <Navbar /> */}
       <div className="config__container">
         <div className="config__text-container">
-          <h1 className="group__info-title laboratorios">{`Ejercicio ${ejercicios.nombre}`}</h1>
-          <button className="group__pub-button" onClick={deleteExercise}>
+          <h1 id="tituloEjercicio33" className="group__info-title laboratorios">{`Ejercicio ${ejercicios.nombre}`}</h1>
+          <button id="botonEjercicio33" className="group__pub-button" onClick={deleteExercise}>
             Eliminar Ejercicio
           </button>
+          <hr id="separadorRecomendaciones"/>
           {calificaciones.map((calificacion, i) => {
             const alumno =
               alumnos.find((alumno) => alumno.id === calificacion.idAlumno) ||
               {};
 
             return (
-              <div className="group__container-info-lab" key={Math.random()}>
-                <h2 className="laboratorios">{alumno.nombre}</h2>
-                <p className="laboratorios-desc">{calificacion.puntuaje}</p>
-                <p className="laboratorios-desc">{calificacion.observacion}</p>
-                <textarea
+              <div style={{
+              background: `rgb(${random()}, ${random()}, ${random()})`, 
+            }}  
+            className="group__container-info-lab" key={Math.random()}>
+                <h2 id="AlumnoNombreRecomendaciones" className="laboratorios">{alumno.nombre}</h2>
+                <br/>
+                <p id="CalificacionRecomendaciones" className="laboratorios-desc">Calificacion: {calificacion.puntuaje}</p>
+                <br/>
+                <p id="RecomendacionesRecomendaciones" className="laboratorios-desc">Comentario: {calificacion.observacion}</p>
+                <br/>
+                <textarea id="textAreaRecomendaciones"
                   className="view-main-container-form-area"
                   placeholder="Escribe tu observacion o recomendacion"
                   ref={(el) => (comentTextRef.current[i] = el)}
                 ></textarea>
-                <button
+                <button id="botonEnviarRecomendaciones"
                   className="group__pub-button"
                   onClick={(e) => {
                     e.preventDefault();

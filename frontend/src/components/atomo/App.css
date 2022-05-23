@@ -1,4 +1,4 @@
-.guardar {
+.guardar123 {
   border: 0;
   background: none;
   box-shadow: none;
@@ -8,7 +8,7 @@
   left: 65%;
   width: 33%;
   height: 8%;
-  border-radius: 10%;
+  border-radius: 50px;
   background: rgb(130, 83, 222);
   background: linear-gradient(
     85deg,
@@ -17,6 +17,11 @@
   );
   color: white;
   font-size: 2vw;
+  text-align: center;
+  padding-top: 10px;
+  font-family: 'Roboto';
+  font-weight: 700;
+  text-decoration: none;
 }
 
 .carta {
@@ -31,6 +36,16 @@
   width: 94%;
   background-color: white;
 }
+
+#labelprincipal{
+  font-family: 'Roboto';
+  font-weight: 700;
+  font-size: 1.4vw;
+  margin-left: 2%;
+  margin-top: 2%;
+}
+
+
 
 html {
   background: rgb(124, 47, 223);

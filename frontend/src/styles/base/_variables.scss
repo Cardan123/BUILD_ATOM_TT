@@ -1,4 +1,16 @@
-$primary-color-bg : linear-gradient(#9d5bf3, #272487);
+@font-face {
+    font-family: 'garden_grown_usc_caps';
+    src: url('../../../fuentes/gardengrownus-ccaps-webfont.woff2') format('woff2'),
+         url('../../../fuentes/gardengrownus-ccaps-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+$primary-color-bg : linear-gradient(180deg, rgba(21,29,59,1) 120px, rgba(157,91,243,1) 120px, rgba(39,36,135,1) 100%);
+$primary-color-bg2 : linear-gradient(rgba(157,91,243,1), rgba(39,36,135,1));
+$primary-color-buttons : linear-gradient(#9d5bf3, #050508);
 $secondary-color-bg : white;
 $primary-color-text: #342393;
 $secondary-color-text: darken($color: #CAF0F8, $amount: 40);
@@ -10,7 +22,8 @@ $font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida San
 
 //auth
 $auth-input-bg: #CAF0F8;
-$titles-font-family: 'Helvetica Neue';
+$titles-font-family: 'Roboto';
+$principal-font-family: 'garden_grown_usc_caps';
 
 //landing
 $landing-icon-color: #EA168E;

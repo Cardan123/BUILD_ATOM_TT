@@ -1,16 +1,16 @@
 .list-container {
   margin: auto;
-  padding-top: 2%;
   padding-left: 4%;
-  padding-bottom: 1%;
-  background-color: white;
   font-family: $titles-font-family;
   flex: 50%;
-
+  height: 80vh;
+  font-size: 3vh;
+  list-style-type: none;
   &-hr {
-    border: 5px solid;
+    border: 2px solid;
     border-radius: 50px;
-    margin: auto;
+    margin: 2px;
     margin-right: 10%;
   }
 }
+

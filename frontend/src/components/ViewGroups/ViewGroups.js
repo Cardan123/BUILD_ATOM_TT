@@ -219,13 +219,13 @@ const ViewGroup = (props) => {
 
   return (
     <Fragment>
-      <div className="view-main">
-        <div className="config__text-container">
-          <div className="group__info">
-            <h1 className="group__info-title">{`Grupo ${grupo.id} ${grupo.nombre}`}</h1>
-            <p className="group__info-user">{`Profesor: ${profesor.nombre}`}</p>
+      <div id="principal1" className="view-main">
+        <div id="principal2" className="config__text-container">
+          <div id="contenedortitulogrupo" className="group__info">
+            <h1 id="titulGrupo" className="group__info-title">{`Grupo ${grupo.id} ${grupo.nombre}`}</h1>
+            <p id="titulProf" className="group__info-user">{`Profesor: ${profesor.nombre}`}</p>
 
-            <button
+            <button id="editGrupo"
               className="group__pub-button"
               onClick={(e) => {
                 e.preventDefault();
@@ -234,35 +234,38 @@ const ViewGroup = (props) => {
             >
               Editar Grupo
             </button>
-            <button className="group__pub-button" onClick={deleteGroup}>
+            <button id="elimGrupo" className="group__pub-button" onClick={deleteGroup}>
               Eliminar Grupo
             </button>
           </div>
 
           <div className="view-main-container">
-            <div className="view-main-container-post">
+            <div id="contenedorPubli" className="view-main-container-post">
               <div className="group__new-pub">
                 <img
                   className="group__img-pub"
                   src={testImg}
                   alt="avatar"
                 ></img>
-                <div className="view-main-container-form">
+                <div id="contenedorNuevaPub" className="view-main-container-form">
                   <form>
-                    <textarea
+                    <textarea id="nuevaPub"
                       className="view-main-container-form-area"
                       placeholder="Escribe tu publicacion aqui"
                       ref={inputTextRef}
                     ></textarea>
                     <input
+                      id="subirArchivo"
+                      class="group__file-upload"
                       type="file"
                       onChange={(e) => setSelectedFile(e.target.files[0])}
                     />
                     <button
+                      id="publicarGrupo"
                       className="group__pub-button"
                       onClick={insertPublication}
                     >
-                      Enviar publicacion
+                      Publicar
                     </button>
                   </form>
                 </div>
@@ -274,11 +277,19 @@ const ViewGroup = (props) => {
                 const coments = comentarios.map((comentario) => {
                   if (comentario.idPublicacion === publicacion.id) {
                     return (
-                      <div
+                      <div id="contenedorComentariosPublicados"
                         className="view-main-container-post-comment"
                         key={Math.random()}
                       >
-                        <p>{comentario.texto}</p>
+
+                      <img id="imagenComentarios"
+                        className="group__img-pub"
+                        src={testImg}
+                        alt="avatar"
+                      ></img>
+
+                        <p id="idComentarioUser">{`Comentario por Usuario con id: ${comentario.idUsuario}`}</p>
+                   
 
                         {comentario.archivos !== "null" && (
                           <img
@@ -287,8 +298,9 @@ const ViewGroup = (props) => {
                             alt={`Publicacion ${comentario.id}`}
                           />
                         )}
-                        <p>{`by ${comentario.idUsuario}`}</p>
-                        <button
+                
+                        
+                        <button id="botonElimComent"
                           className="group__pub-button"
                           onClick={(e) => {
                             e.preventDefault();
@@ -298,28 +310,29 @@ const ViewGroup = (props) => {
                           Eliminar Comentario
                         </button>
                         <br />
+                        <p id="textoComentario">{comentario.texto}</p>
                       </div>
                     );
                   }
                 });
 
                 return (
-                  <div className="view-main-container-post" key={Math.random()}>
-                    <p>{`Post por Usuario con id: ${publicacion.idUsuario}`}</p>
-                    <p className="config__input pub-text">
-                      {publicacion.texto}
-                    </p>
+                  <div id="grupoPosts" className="view-main-container-post" key={Math.random()}>
+                  <img
+                  className="group__img-pub"
+                  src={testImg}
+                  alt="avatar"
+                ></img>
 
-                    {publicacion.archivos !== "null" && (
-                      <img
-                        className="view-main-container-post-img"
-                        src={publicacion.archivos}
-                        width="100px"
-                        alt={`Publicacion ${publicacion.id}`}
-                      />
-                    )}
+                    <div id="contenedorFechaNombre">
+                      <p id="nombreUserPub">{`Post por Usuario con id: ${publicacion.idUsuario}`}</p>
+                      <br />
+                      <p id="fechaPub">{`${publicacion.createdAt}`}</p>    
+                    </div>
+
 
                     <button
+                      id="elimiPub"
                       className="group__pub-button"
                       onClick={(e) => {
                         e.preventDefault();
@@ -328,18 +341,50 @@ const ViewGroup = (props) => {
                     >
                       Eliminar Publicacion
                     </button>
+                    
+                    
+                    
+                    
+                    
+                    
+                    <p id="textoPubli" className="config__input pub-text">
+                      {publicacion.texto}
+                    </p>
                     <br />
 
-                    <div className="view-main-container-form">
+
+                    {publicacion.archivos !== "null" && (
+                                          <div id="contenedorFotoPubli"
+                                          onClick={()=> window.open(`${publicacion.archivos}`, "_blank")}
+                                          >
+                      <img id="fotoPubli"
+                        className="view-main-container-post-img"
+                        src={publicacion.archivos}
+                        alt={`Publicacion ${publicacion.id}`}
+                      />
+                      <div id="contenedorIdArchivo">
+                    <p id="tipoFichero">Haga click para visualizar el fichero</p>
+                    <br />
+                    <p id="urlFichero">{publicacion.archivos}</p>
+                    </div>
+                    </div>
+                    )}
+                    
+                    
+
+                    <br />
+                    <hr id="separadorComentarios" />
+                    <div id="contenedorComentarios" className="view-main-container-form">
                       <form>
-                        <textarea
+                        <textarea id="placeComent"
                           placeholder="Escribe tu comentario aqui"
                           className="view-main-container-form-area"
                           ref={(el) => (comentTextRef.current[i] = el)}
                           rows="3"
                           cols="70"
                         ></textarea>
-                        <button
+                        
+                        <button id="botonComent"
                           className="group__pub-button"
                           onClick={(e) => {
                             e.preventDefault();

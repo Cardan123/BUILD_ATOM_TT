@@ -5,7 +5,7 @@
   border-radius: 5px;
   display: flex;
   flex-direction: column;
-  min-height: 100%;
+  min-height: 80vh;
 }
 .group__info {
   border-radius: 5px;
@@ -98,20 +98,20 @@
   flex-direction: row;
 }
 .laboratorios {
-  text-decoration: underline;
-  text-underline-offset: 4px;
-  text-decoration-color: $landing-icon-color;
+  font-family: 'Roboto';
+  font-size: 3vh;
   &-desc {
     padding-top: 15px;
     padding-bottom: 15px;
   }
 }
 .group__container-info-lab {
+  font-family: 'Roboto';
   max-width: 400px;
   padding: 52px 24px 24px;
   position: relative;
   width: 400px;
-  height: 300px;
+  height: 50px;
   flex-grow: 1;
   font-size: 16px;
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
@@ -121,8 +121,9 @@
   background: white;
   padding: 52px 24px 24px;
   margin-right: 10px;
-  margin-left: 5px;
+  margin-left: 5%;
   list-style-type: none;
+
 }
 .group__pub-usuario {
   display: flex;
@@ -132,4 +133,451 @@
 }
 .pub-text {
   width: 80% !important;
+}
+
+
+#realilab{
+  margin-right: 1px;
+  margin-bottom: 0px;
+  align-self:flex-end;
+}
+
+#hrlabs{
+  border: 2px solid;
+  border-radius: 50px;
+  margin: 5px;
+  margin-right: 1%;
+  margin-left: 1%;
+}
+
+
+#contenedorLabs{
+  border-radius: 5px;
+  margin-top: 20px;
+  display: block;
+  //flex-direction: column;
+}
+
+#botoncrear{
+  display: inline;
+}
+
+#tituloLabs{
+  padding-right: 60%;
+  padding-left: 5%;
+  display: inline;
+}
+
+#grupoPosts{
+  border-radius: 5px;
+  border: 1px solid;
+  border-color: rgba(0, 0, 0, 0.1);
+  box-shadow:
+  0px 0.3px 0.2px rgba(0, 0, 0, 0.011),
+  0px 0.7px 0.6px rgba(0, 0, 0, 0.016),
+  0px 1.3px 1.1px rgba(0, 0, 0, 0.02),
+  0px 2.5px 2px rgba(0, 0, 0, 0.024),
+  0px 5.2px 3.8px rgba(0, 0, 0, 0.029),
+  0px 11px 9px rgba(0, 0, 0, 0.04);
+  display: block;
+}
+
+#contenedorPubli{
+  border-radius: 5px;
+  border: 1px solid;
+  border-color: rgba(0, 0, 0, 0.1);
+  box-shadow:
+  0px 0.3px 0.2px rgba(0, 0, 0, 0.011),
+  0px 0.7px 0.6px rgba(0, 0, 0, 0.016),
+  0px 1.3px 1.1px rgba(0, 0, 0, 0.02),
+  0px 2.5px 2px rgba(0, 0, 0, 0.024),
+  0px 5.2px 3.8px rgba(0, 0, 0, 0.029),
+  0px 11px 9px rgba(0, 0, 0, 0.04);
+}
+
+#elimGrupo{
+  background: $secondary-color-bg;
+  color: black;
+  border-color: rgba(0,0,0,0);
+  font-family: $titles-font-family;
+  font-weight: 500;
+  display:inline-block;
+}
+
+
+#elimGrupo:hover{
+  background: $bg-image-section;
+  color: $secondary-color-bg;
+  transition: 250ms background ease-in;
+  border-color: white;
+}
+
+#editGrupo{
+  background: $secondary-color-bg;
+  color: black;
+  border-color: rgba(0,0,0,0);
+  font-family: $titles-font-family;
+  font-weight: 500;
+  display:inline-block;
+  margin-left: 57%;
+}
+
+
+#editGrupo:hover{
+  background: $bg-image-section;
+  color: $secondary-color-bg;
+  transition: 250ms background ease-in;
+  border-color: white;
+}
+
+#titulGrupo{
+  font-size: 100px;
+  font-family: $titles-font-family;
+  font-weight: 500;
+  padding-top: 0%;
+  padding-bottom: 1%;
+  padding-left: 1%;
+}
+
+#titulProf{
+  font-size: 20px;
+  font-family: $titles-font-family;
+  font-weight: 300;
+  padding-top: 0%;
+  padding-left: 1%;
+  display:inline-block;
+}
+
+
+#contenedortitulogrupo{
+  padding-top: 0px;
+  margin-top: 0px;
+  border-radius: 0%;
+  background-color: $primary-color-bg2;
+  display: block;
+}
+
+#principal1{
+  padding-top: 0%;
+  background-color: rgba(39,36,135,1);
+}
+#principal2{
+  border-radius: 30px;
+}
+
+#subirArchivo{
+  //width: 100px;
+  margin-left: 1%;
+  display: inline-block;
+  margin-right: 0%;
+  margin-top: 2%;
+  vertical-align: top;
+}
+
+#publicarGrupo{
+  display: inline-block;
+  margin-left: 0%;
+  margin-top: 1%;
+  vertical-align: top;
+
+}
+
+#contenedorNuevaPub{
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+#nuevaPub{
+  height: 25px;
+  display: inline-block;
+  width: 50%;
+  border: 0px;
+  margin-top: 2%;
+  margin-left: 2%;
+  border: 1px lightgray solid;
+  &::placeholder{
+    color: black;
+    font-family: $titles-font-family;
+    font-weight: 700;
+    opacity: 1;
+  
+  }
+}
+
+#nombreUserPub{
+  color: black;
+  font-family: $titles-font-family;
+  font-weight: 900;
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+#elimiPub{
+  display: inline-block;
+  margin-left: 51%;
+  vertical-align: top;
+}
+
+#fotoPubli{
+  border-radius: 0%;
+  width: 140px;
+  height: 110px;
+  display: inline-block;
+}
+
+#textoPubli{
+  display: inline-block;
+  width: auto;
+  height: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 0px;
+  overflow-y: auto;
+  vertical-align: middle;
+  color: black;
+}
+
+#fechaPub{
+  color: black;
+  font-family: $titles-font-family;
+  font-weight: 300;
+  display: inline-block;
+  margin-bottom: 10px;
+  margin-left: 10px;
+}
+
+#contenedorFechaNombre{
+  display: inline-block;
+  vertical-align: top;
+
+}
+
+#contenedorFotoPubli{
+  border: 1px lightgray solid;
+  width: 100%;
+  height: 110px;
+  display: block;
+  border-radius: 0px 50px 50px 0px;
+  cursor: pointer;
+}
+
+#tipoFichero{
+  display: inline-block;
+  vertical-align: top;
+  margin-top: 30px;
+  margin-left: 10px;
+  color: black;
+  font-family: $titles-font-family;
+  font-weight: 500;
+}
+
+#urlFichero{
+  display: inline-block;
+  font-family: $titles-font-family;
+  font-weight: 100;
+  color: black;
+  margin-left: 10px;
+}
+
+#contenedorIdArchivo{
+  display: inline-block;
+  vertical-align: top;
+}
+
+#separadorComentarios{
+  border: 2px solid lightgrey;
+  margin-bottom: 10px;
+  border-radius: 500px;
+}
+
+#contenedorComentarios{
+  display: block;
+}
+
+#placeComent{
+  height: 40px;
+  display: inline-block;
+  width: 80%;
+  border: 0px;
+  margin-top: 0%;
+  margin-left: 2%;
+  border: 1px lightgray solid;
+  &::placeholder{
+    color: black;
+    font-family: $titles-font-family;
+    font-weight: 700;
+    opacity: 1;
+  
+  }
+}
+
+#botonComent{
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 1%;
+}
+
+#contenedorComentariosPublicados{
+  display: block;
+  border: 1px lightgray solid;
+}
+
+#imagenComentarios{
+  display: inline-block;
+}
+
+#textoComentario{
+  display: inline-block;
+  font-family: $titles-font-family;
+  font-weight: 300;
+  font-size: 20px;
+  margin-left: 60px;
+}
+
+#botonElimComent{
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 40%;
+}
+
+#idComentarioUser{
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 10px;
+  margin-top: 10px;
+  font-family: $titles-font-family;
+  font-weight: 900;
+}
+
+#contenedorTextoComentarios2{
+  display: inline-block;
+}
+
+#separadorCrearEjercicio{
+  border: 2px solid black;
+  margin-bottom: 10px;
+}
+
+#laboratorioNombre{
+  display: inline-block;
+  margin-left: 10px;
+  margin-right: 75%;
+}
+
+#botonCrearEjercicio2{
+  display: inline-block;
+}
+
+#contenedorLaboratorioCrear{
+  display: block;
+}
+
+#tarjetaEjercicio{
+  display: inline-block;
+  margin-top: 20px;
+  margin-left: 20px;
+  padding: 0 0 0 0;
+  height: 280px;
+
+}
+
+#ordenlistasRevisarEjercicio{
+  display: block;
+  margin-left: 60px;
+}
+
+#tarjetaNombreEjercicio{
+  vertical-align: top;
+  display: inline-block;
+  padding-top: 0px; 
+  padding-bottom: 0px; 
+  padding-left: 0px;
+  font-family: $titles-font-family;
+  font-weight: 900;
+  font-size: 100px;
+  margin-left: 20px;
+}
+
+#tarjetaDescripcionEjercicio{
+  vertical-align: top;
+  display: inline-block;
+  padding-top: 0px; 
+  padding-bottom: 0px; 
+  padding-left: 0px;
+  font-family: $titles-font-family;
+  font-weight: 200;
+  font-size: 40px;
+  margin-left: 20px;
+  margin-right: 35%;
+}
+
+#contenedorTexto22{
+ display: block;
+}
+
+#botonRevisarEjercicio22{
+vertical-align: bottom;
+margin-left: 65%;
+margin-top: 14%;
+}
+
+#separadorRecomendaciones{
+  border: 2px black solid;
+  margin-bottom: 20px;
+}
+
+#tituloEjercicio33{
+  display: inline-block;
+  margin-right: 64%;
+  vertical-align: top;
+  padding-top: 20px;
+}
+
+#botonEjercicio33{
+  display: inline-block;
+  vertical-align: top;
+  margin-top: 20px;
+  
+}
+#textAreaRecomendaciones{
+  display: inline-block;
+  height: 40px;
+  margin-right: 10px;
+    
+}
+
+#botonEnviarRecomendaciones{
+  display: inline-block;
+  vertical-align: top;
+  height: 40px;
+}
+
+#CalificacionRecomendaciones{
+  display: inline-block;
+}
+
+#AlumnoNombreRecomendaciones{
+  display: inline-block;
+}
+
+#RecomendacionesRecomendaciones{
+  display: inline-block;
+}
+
+#solopondreborder{
+  padding-bottom: 20px;
+  border-radius: 20px;
+}
+
+#titulAlum{
+  font-size: 20px;
+  font-family: $titles-font-family;
+  font-weight: 300;
+  padding-top: 0%;
+  padding-left: 1%;
+  padding-bottom: 1%;
+  display:inline-block;
 }

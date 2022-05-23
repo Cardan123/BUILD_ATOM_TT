@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
-import yasmin from "../../assets/img/yasmin.jpg";
+import testImg from "../../assets/img/kevin.jpg";
 
 import React, { Fragment, useState, useEffect } from "react";
 
@@ -30,7 +30,8 @@ const Navbar = (props) => {
     <Fragment>
       <div className="config__barra-sup">
         <h2 className="config__barra-sup-header">WHAT'S THAT ATOM?</h2>
-        <button
+        
+        <button id="alumnos"
           className="config__barra-sup-buttons"
           onClick={(e) => {
             e.preventDefault();
@@ -39,8 +40,10 @@ const Navbar = (props) => {
         >
           Alumnos
         </button>
+
+
         {type === "alumno" && (
-          <button
+          <button id="grupo"
             className="config__barra-sup-buttons"
             onClick={(e) => {
               e.preventDefault();
@@ -50,6 +53,7 @@ const Navbar = (props) => {
             Grupo
           </button>
         )}
+
         {type === "profesor" && (
           <button
             className="config__barra-sup-buttons"
@@ -62,7 +66,7 @@ const Navbar = (props) => {
           </button>
         )}
 
-        <button
+        <button id="laboratorios"
           className="config__barra-sup-buttons"
           onClick={(e) => {
             e.preventDefault();
@@ -75,15 +79,18 @@ const Navbar = (props) => {
         <div className="config__barra-sup-options">
           <div className="config__barra-sup-options-distr">
             <div className="config__barra-sup-options-content">
-              <img
-                src={yasmin}
+              <img id="foto"
+                src={testImg}
                 className="config__barra-sup-options-img"
                 alt="avatar"
               ></img>
-              <button className="config__barra-sup-buttons" onClick={logOut}>
+              <div id="test">
+
+              
+              <button id="logout" className="config__barra-sup-buttons" onClick={logOut}>
                 Log out
               </button>
-              <button
+              <button id="edit"
                 className="config__barra-sup-buttons"
                 onClick={(e) => {
                   e.preventDefault();
@@ -92,6 +99,7 @@ const Navbar = (props) => {
               >
                 Editar Perfil
               </button>
+              </div>
             </div>
           </div>
         </div>

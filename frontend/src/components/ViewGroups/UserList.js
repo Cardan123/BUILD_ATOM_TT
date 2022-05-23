@@ -63,19 +63,61 @@ const UserList = (props) => {
       {/* <Navbar /> */}
       <div className="list-container">
         <div className="list-container-profesor">
-          <h1>Profesor</h1>
+          <h1>Profesor(a)</h1>
           <hr className="list-container-hr" />
           <ul>
-            <li>{`Profesor ${profesor.nombre}`}</li>
+          <div
+            style={{verticalAlign: 'middle',
+            borderRadius: '50%',
+            content: '',
+            display: 'inline-block',
+            height: '9vh',
+            width: '9vh',
+            backgroundImage: 'url(https://boredhumans.b-cdn.net/faces2/846.jpg)', //esta es la imagen a remplazar
+            backgroundSize: '9vh',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+            marginRight: '1vh'
+          }}            
+            ></div>
+            <li id="prof"
+            style={{  listStyleType: 'none',
+              display: 'inline-block'
+            }}            
+            >{`Profesor ${profesor.nombre}`}</li>
           </ul>
         </div>
 
         <div>
-          <h1>Alumnos</h1>
+          <h1>Alumnos(as)</h1>
           <hr className="list-container-hr" />
           <ul>
+            
             {alumnos.map((alumno) => {
-              return <li key={Math.random()}>{`${alumno.nombre}`}</li>;
+              
+              return <span><div
+              style={{verticalAlign: 'middle',
+              borderRadius: '50%',
+              content: '',
+              display: 'inline-block',
+              height: '9vh',
+              width: '9vh',
+              backgroundImage: 'url(https://boredhumans.b-cdn.net/faces2/'+`${alumno.id}`+'.jpg)', //esta es la imagen a remplazar
+              backgroundSize: '9vh',
+              backgroundRepeat: 'no-repeat',
+              backgroundPosition: 'center',
+              marginRight: '1vh'
+            }}            
+              ></div>
+              
+              
+              <li style={{  listStyleType: 'none',
+              display: 'inline-block',
+              }}    
+             key={Math.random()}>{`${alumno.nombre}`}</li>
+              <br></br>
+              
+              </span>;
             })}
           </ul>
         </div>

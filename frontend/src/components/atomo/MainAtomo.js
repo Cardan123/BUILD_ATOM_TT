@@ -137,14 +137,15 @@ class MainAtomo extends React.Component {
     return (
       <div className="config__main">
         <div className="config-box-container">
-          <div className="carta">
+          <div id="cartaprincipalatomos" className="carta">
+          <p id="labelprincipal">Arrastra las particulas subatomicas hacia el atomo, hasta crear el elemento que necesitas</p>
             <Cubeta handler={this.handler} />
             <Tabla datos={this.state} />
             <Elemento datos={this.state} />
             <Informacion datos={this.state} />
             <a
               href="/group/evaluate"
-              className="guardar"
+              className="guardar123"
               onClick={() => {
                 this.handleClick(this.state);
               }}

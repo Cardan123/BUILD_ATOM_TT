@@ -87,33 +87,41 @@ const EvaluateGroup = (props) => {
     if (calificaciones) return print;
     else return <p key={Math.random()}>Ejercicio no realizado</p>;
   };
-
+  const random = () => Math.floor(Math.random() * (255 - 100 + 1) + 100);
   return (
     <Fragment>
       {/* <Navbar /> */}
       <div className="config__container">
-        <div className="config__text-container">
-          <h1 className="group__info-title laboratorios">
+        <div id="solopondreborder" className="config__text-container">
+        <div id="contenedorLaboratorioCrear">
+          <h1 id="laboratorioNombre" className="group__info-title laboratorios">
             {laboratorio.nombre}
           </h1>
 
           {type === "profesor" && (
-            <button className="group__pub-button" onClick={createExercise}>
+            <button id="botonCrearEjercicio2" className="group__pub-button" onClick={createExercise}>
               Crear ejercicio
             </button>
           )}
-          <hr />
-          <ul>
+</div>
+          <hr id="separadorCrearEjercicio" />
+
+          <div id="ordenlistasRevisarEjercicio">
             {ejercicios.map((ejercicio) => {
               return (
-                <div key={Math.random()} className="group__container-info-lab">
-                  <li key={Math.random()}>
-                    <p className="group__info-title laboratorios">
+                <div style={{
+                  background: `rgb(${random()}, ${random()}, ${random()})`, 
+                }}     
+                id="tarjetaEjercicio" key={Math.random()} className="group__container-info-lab">
+                  <li id="contenedorTexto22" key={Math.random()}>
+                    <p id="tarjetaNombreEjercicio" className="group__info-title laboratorios">
                       {ejercicio.nombre}
                     </p>
-                    <p className="laboratorios">{ejercicio.descripcion}</p>
+                    <br />
+                    <p id="tarjetaDescripcionEjercicio" className="laboratorios">{ejercicio.descripcion}</p>
+                    <br />
                     {type === "profesor" && (
-                      <button
+                      <button id="botonRevisarEjercicio22"
                         className="group__pub-button"
                         onClick={(e) => {
                           e.preventDefault();
@@ -127,7 +135,7 @@ const EvaluateGroup = (props) => {
                     {type === "alumno" &&
                       getCalificacionEjercicio(ejercicio.id)}
                     {type === "alumno" && (
-                      <button
+                      <button id="botonRevisarEjercicio22"
                         className="group__pub-button"
                         onClick={(e) => {
                           e.preventDefault();
@@ -146,7 +154,7 @@ const EvaluateGroup = (props) => {
                 </div>
               );
             })}
-          </ul>
+          </div>
         </div>
       </div>
     </Fragment>

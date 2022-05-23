@@ -44,7 +44,7 @@ export const NewLabScreen = () => {
   };
 
   return (
-    <div className="config__container">
+    <div id="contenedorNuevoLab" className="config__container">
       <div className="config__image-container">
         <div className="config__fondo">
           <img src={newlab}></img>

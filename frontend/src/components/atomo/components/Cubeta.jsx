@@ -5173,11 +5173,11 @@ const move = (source, destination, droppableSource, droppableDestination) => {
 const getParticleStyle = (isDragging, draggableStyle, type) => ({
 
   userSelect: "none",
-  padding: '0.4vw',
+  padding: '0.0vw',
   borderRadius: `50%`,
   margin: `0 0 0.25vw 0`,
-  height: `0.5vw`,
-  width: `0.5vw`,
+  height: `1.1vw`,
+  width: `1.1vw`,
   color: `white`,
   fontSize: `0.8vw`,
   fontWeight: `bold`,
@@ -5199,12 +5199,12 @@ const getParticleStyle = (isDragging, draggableStyle, type) => ({
 
 const getListStyle = (isDraggingOver,id) => ({
   background: (isDraggingOver && (id!=3) ) ? "cyan" : (id===3) ? "" : "lightgrey",
-  width: (id===3) ? '58%' : '17%',
+  width: (id===3) ? '25%' : '17%',
   position: `absolute`,
   borderWidth: 10,
   borderRadius: 10,
   borderColor: 'blue',
-  
+  //border: '1px black solid',
   backgroundImage: (id===3) ? `url(${background})` : ``,
   backgroundRepeat: (id===3) ? `no-repeat`: ``,
   backgroundPosition: (id===3) ? `center`: ``,
@@ -5212,7 +5212,7 @@ const getListStyle = (isDraggingOver,id) => ({
 
 
   top: (id===3) ? '10%' : '60%',
-  left: (id===3) ? '4%' : (id===2) ? '25%' : (id===1) ? '45%' :'4%',
+  left: (id===3) ? '20%' : (id===2) ? '25%' : (id===1) ? '45%' :'4%',
   height: (id===3) ? '45%' : '30%',
 });
 
@@ -5358,6 +5358,7 @@ export function Cubeta(props) {
 
                   {provided.placeholder} 
                 </div>
+                
               )}
 
             </Droppable>
@@ -5370,6 +5371,31 @@ export function Cubeta(props) {
 
         </DragDropContext>
       </div>
+      <p style={{position: `absolute`,
+                fontFamily: 'Roboto',
+                fontWeight: '500',
+                fontSize: '2vw',
+                top:  '84%',
+                left: '7%',
+                }}>
+      Electrones</p>
+
+      <p style={{position: `absolute`,
+                fontFamily: 'Roboto',
+                fontWeight: '500',
+                fontSize: '2vw',
+                top:  '84%',
+                left: '28%',
+                }}>
+      Neutrones</p>
+      <p style={{position: `absolute`,
+                fontFamily: 'Roboto',
+                fontWeight: '500',
+                fontSize: '2vw',
+                top:  '84%',
+                left: '49%',
+                }}>
+        Protones</p>
     </div>
   );
 }
